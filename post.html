@@ -126,10 +126,15 @@
 
                     <h3>Society</h3>
                     <p>
-                        During this part of the project, we try to analyze what is the society’s general impression of immigration. We choose to explore some news press like New York Times as the first step because we potentially want to compare the difference between people’s impression of immigration before and nowadays. Newspaper media is one of the very few things lasts all the time until nowadays. It is more durable than internet social media which only exists in the most recent decade. I went to the NYT API website http://developer.nytimes.com/docs and register for their article search api key which seems to be the most relevant api function call. I register around 10 api keys and download article infos from 1850 - 2006 about the keyword immigration. The article is selected if the keyword shows up on the headline or the body of the article. The return is a json file and I have to parse through to extract the info and gather together to store them in a csv file. After finally getting all the infos, I write a script to allow users to give a arbitrary bin number and then the program will automatically divide all the data across the years into those bins and extract the most important keywords and their frequencies based on each bin unit AND store them afterwards. I used sklearn’s TF IDF buit-in functions to handle the extraction.  As the next step, I am going to graph those words in a word cloud visualization based on different years. The sample graph could be like this http://vallandingham.me/bubble_cloud/
+                        During this part of the project, we tried to analyze society’s general impression of immigration. We chose to explore a news source, the New York Times, as the first step in comparing the past and present public and media’s impression of immigration. Newspaper media, unlike twitter data, has existed for longer than the past 10 years and so is more durable than internet social media.
+                    </p>
+                    </p>
+                        We went to the NYT API website http://developer.nytimes.com/docs and registered for their article search api key which seems to be the most relevant api function call. We registered around 10 API keys and download article information from 1850 - 2006, all with the keyword immigration (which selects articles if the keyword shows up in the headline or the body of the article). This returns a JSON file, which we have to parse through to extract and gather data, storing in a csv file. After finally gathering all the data, we wrote a script to allow users to give an arbitrary bin number, and then the program will automatically divide all the data across the years into those bins and extract the most important keywords and their frequencies based on each bin unit, after which it stores them. I used sklearn’s TF-IDF buit-in functions to handle this extraction.
+                    </p>
+                    <p>
+                        As a next step, we are going to visualize this data with a word cloud correlated to different years. The sample graph could look something like this http://vallandingham.me/bubble_cloud/
                     </p>
 
-                    <h2>On the Situation of Immigrants in the United States:
                 </div>
             </div>
         </div>
