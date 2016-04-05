@@ -95,14 +95,14 @@
                         We've embarked on a mission to take a critical look at the way the United States treats those who cross its borders (whether that be refugees, undocumented immigrants, or legal permanent residents), and how those people react and live in the United States. We will be comparing data that we find representative of the government and society's treatment of these people to the statistics and stories that best represent their lives in the United States.
                     </p>
 
-                    <h2>On the Treatment of Immigrants by the United States</h2>
+                    <h2>Treatment of Immigrants by the United States</h2>
 
                     <h3>Congress</h3>
-                    <p> 
-                        We decided to explore the years of legislation in Congress. We were very interested in looking at both chambers; the House of Representatives and the Senate, and analyzing the content of the proposed bills on the topic of Immigration and Foreign Affairs. We collected information on the success of those bills; i.e. whether they passed or not, the support they received, i.e. parties sponsoring and voting for them, and, finally, their detailed content and clauses. Currently we have collected such information for the 108th Congress (2003-2004). We are going to further retrieve data for Congresses spanning a range of 30 years, documenting how significant historic events, such as 9/11, affected the political scene in the US.
-                    </p>  
                     <p>
-                        In order to do so, we got the congress data in JSON format from <a href="https://www.govtrack.us/data/">DataGov</a> and parsed the available vote, bill and amendment documents to extract the nessecary information for the category of interest. Revisions of bills were present, as well as amendments containing bills related to our query parameter. We constructed an API Processor Class that takes as an input a congress directory path and a query parameter and outputs a csv file containing all the bill and amendment information for the specified congress session and parameter. The Processor initializes a dictionary with a variety of keys, i.e. “isAmendment”, “bill_long_text” and provides multiple API methods, including <i>find_chamber_count()</i>, <i>read_chamber_data()</i>, <i>get_bill_info()</i> and <i>arrange_dict()</i>. 
+                        We decided to explore the years of legislation in Congress. We were very interested in looking at both chambers; the House of Representatives and the Senate, and analyzing the content of the proposed bills on the topic of Immigration and Foreign Affairs. We collected information on the success of those bills; i.e. whether they passed or not, the support they received, i.e. parties sponsoring and voting for them, and, finally, their detailed content and clauses. Currently we have collected such information for the 108th Congress (2003-2004). We are going to further retrieve data for Congresses spanning a range of 30 years, documenting how significant historic events, such as 9/11, affected the political scene in the US.
+                    </p>
+                    <p>
+                        In order to do so, we got the congress data in JSON format from <a href="https://www.govtrack.us/data/">DataGov</a> and parsed the available vote, bill and amendment documents to extract the nessecary information for the category of interest. Revisions of bills were present, as well as amendments containing bills related to our query parameter. We constructed an API Processor Class that takes as an input a congress directory path and a query parameter and outputs a csv file containing all the bill and amendment information for the specified congress session and parameter. The Processor initializes a dictionary with a variety of keys, i.e. “isAmendment”, “bill_long_text” and provides multiple API methods, including <i>find_chamber_count()</i>, <i>read_chamber_data()</i>, <i>get_bill_info()</i> and <i>arrange_dict()</i>.
                     </p>
 
                     <p>
@@ -118,12 +118,31 @@
                     <h3>Department of Homeland Security</h3>
 
                     <p>
-                        We've gathered data from the Department of Homeland Security to investigate the time and money the United States spends on allowing or denying people access into the country. The DHS has data tables for a range of subjects, a few of which have data reaching back to 1820. For our project however, we will most likely be exploring no more than twenty or thirty years into the past, where the majority of their data sets are complete. We chose a 
+                        We've gathered data from the Department of Homeland Security to investigate the time and money the United States spends on allowing or denying people access into the country. The DHS has <a href="https://www.dhs.gov/yearbook-immigration-statistics">data tables</a> for a range of subjects, a few of which have data reaching back to 1820. For our project however, we will be exploring no more than twenty or thirty years into the past, where the majority of their data sets are complete. The DHS collects various data on immigration and entry into the United States, as well as the
                     </p>
+
+                    <h5>Data sets we will be using include:</h5>
+
+                    <p>
+                        Actions and ‘accomplishments’ of the Dept. of Homeland Security: This includes removals and returns of persons violating border control, seizures and searches of smuggled contraband.
+                    </p>
+
+                    <p>Prosecutions, Convictions,  and Dismissals of border violation cases: Each prosecution is time and money spent by the U.S. Government, and indicates a more xenophobic trend.
+                    </p>
+
+                    <p>Refugee, Legal Permanent Resident Status, and Naturalization: Counts of petitions filed, dismissed, and accepted represent an investment in letting people enter the country.</p>
+
+                    <p>Budget for the Department of Homeland Security: As a measure of how much the government is invested in the DHS.
+                    </p>
+
+                    <p>Cleaning, organizing, and compiling these different datasets was quite a project, but with this data unified can easily create very interesting comparisons. Below we’ve compared the number of refugees entering the country, number of persons obtaining Legal Permanent Resident Status, and number of persons apprehended by the DHS per year. Simply being able to see that apprehensions and and LPR’s are on the same order of magnitude already shows the power of this data.
+                    </p>
+
+                    <img src="">
 
                     <h3>Society</h3>
                     <p>
-                        During this part of the project, we try to analyze what is the society’s general impression of immigration. We choose to explore some news press like New York Times as the first step because we potentially want to compare the difference between people’s impression of immigration before and nowadays. Newspaper media is one of the very few things lasts all the time until nowadays. It is more durable than internet social media which only exists in the most recent decade. I went to the NYT API website http://developer.nytimes.com/docs and register for their article search api key which seems to be the most relevant api function call. I register around 10 api keys and download article infos from 1850 - 2006 about the keyword immigration. The article is selected if the keyword shows up on the headline or the body of the article. The return is a json file and I have to parse through to extract the info and gather together to store them in a csv file. After finally getting all the infos, I write a script to allow users to give a arbitrary bin number and then the program will automatically divide all the data across the years into those bins and extract the most important keywords and their frequencies based on each bin unit AND store them afterwards. I used sklearn’s TF IDF buit-in functions to handle the extraction.  As the next step, I am going to graph those words in a word cloud visualization based on different years. The sample graph could be like this http://vallandingham.me/bubble_cloud/ 
+                        During this part of the project, we try to analyze what is the society’s general impression of immigration. We choose to explore some news press like New York Times as the first step because we potentially want to compare the difference between people’s impression of immigration before and nowadays. Newspaper media is one of the very few things lasts all the time until nowadays. It is more durable than internet social media which only exists in the most recent decade. I went to the NYT API website http://developer.nytimes.com/docs and register for their article search api key which seems to be the most relevant api function call. I register around 10 api keys and download article infos from 1850 - 2006 about the keyword immigration. The article is selected if the keyword shows up on the headline or the body of the article. The return is a json file and I have to parse through to extract the info and gather together to store them in a csv file. After finally getting all the infos, I write a script to allow users to give a arbitrary bin number and then the program will automatically divide all the data across the years into those bins and extract the most important keywords and their frequencies based on each bin unit AND store them afterwards. I used sklearn’s TF IDF buit-in functions to handle the extraction.  As the next step, I am going to graph those words in a word cloud visualization based on different years. The sample graph could be like this http://vallandingham.me/bubble_cloud/
                     </p>
 
                     <h2>On the Situation of Immigrants in the United States:
