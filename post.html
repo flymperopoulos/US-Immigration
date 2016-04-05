@@ -99,8 +99,21 @@
 
                     <h3>Congress</h3>
                     <p> 
-                        We decided to explore the years of legislation in Congress 
+                        We decided to explore the years of legislation in Congress. We were very interested in looking at both chambers; the House of Representatives and the Senate, and analyzing the content of the proposed bills on the topic of Immigration and Foreign Affairs. We collected information on the success of those bills; i.e. whether they passed or not, the support they received, i.e. parties sponsoring and voting for them, and, finally, their detailed content and clauses. Currently we have collected such information for the 108th Congress (2003-2004). We are going to further retrieve data for Congresses spanning a range of 30 years, documenting how significant historic events, such as 9/11, affected the political scene in the US.
                     </p>  
+                    <p>
+                        In order to do so, we got the congress data in JSON format from <a href="https://www.govtrack.us/data/">DataGov</a> and parsed the available vote, bill and amendment documents to extract the nessecary information for the category of interest. Revisions of bills were present, as well as amendments containing bills related to our query parameter. We constructed an API Processor Class that takes as an input a congress directory path and a query parameter and outputs a csv file containing all the bill and amendment information for the specified congress session and parameter. The Processor initializes a dictionary with a variety of keys, i.e. “isAmendment”, “bill_long_text” and provides multiple API methods, including <i>find_chamber_count()</i>, <i>read_chamber_data()</i>, <i>get_bill_info()</i> and <i>arrange_dict()</i>. 
+                    </p>
+
+                    <p>
+                        For instance, in the <i>get_bill_info</i> API method shown below, we are passing as an input vote_index (the vote document number for a given congress, year and chamber session) and load the relevant JSON vote document. After we extract the relevant bill type and number we loop through each bill type and collect the data we care about that populates the output of the method in the form of an array.
+
+                    </p>
+
+
+                    <img src="./img/codeCongressBill.png">
+
+                    <p>For more documentation on the API, please look over at our IPython Notebook <a href="https://github.com/flymperopoulos/US-Immigration/blob/congress_etc/data-scraping-2.ipynb">here</a>.</p>
 
                     <h3>Department of Homeland Security</h3>
 
