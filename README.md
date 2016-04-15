@@ -17,7 +17,10 @@ Years 1992-2004 vs Reason for conviction of immigration, naturalization, and oth
 Years 1820-2003 vs Number of legal immigrants into the United States (becomes identical to the lpr dataset).
 
 #####immigration_reg.csv
-Years 1820-2003 (in various combinations, and up until 1994) vs Number of legal immigrants by country/region/continent of origin.
+Years 1820-2003 (in various combinations up until 1994) vs Number of legal immigrants by country/region/continent of origin.
+
+#####inadmissable_reg.csv
+Years 2005-2013 vs Number of foreginers determined inadmissable by country/region/continent of origin.
 
 #####investigations.csv
 Years 1992-2001 vs Number of criminal, employer, fraud, smuggling, inspection (and various subdivions) cases investigated by the INS investigative services unit of the Border Patrol.
@@ -25,11 +28,20 @@ Years 1992-2001 vs Number of criminal, employer, fraud, smuggling, inspection (a
 #####lpr.csv
 Years 1820-2013 vs New Legalized Permanent Residents in the United States.
 
+#####lpr_reg_state/
+Separate tables for Years 2006-2013. Country/region/continent of origin vs current state (U.S) of permanent residence.
+
+#####nat_reg_state/
+Separate tables for Years 2004-2013. Country/region/continent of origin vs current state(U.S) in which immigrant was naturalized.
+
 #####naturalization.csv
 Years 1907-2013 vs Petitions for naturalization, naturalized (with subdivisions), and denied.
 
 #####naturalization_reg.csv
-Years 1991-2013 vs People naturalized by country/region/continent of origin.
+Years 1991-2013 vs Number of people naturalized by country/region/continent of origin.
+
+#####naturalization_state.csv
+Years 1986-2013 vs Number of people naturalized by current state (U.S) of residence.
 
 #####prosecutions.csv
 Years 1992-2004 vs Prosecutions, convictions, acquittals, dismissals for immigration, naturalization, and other violations. Also includes fines (in dollars), and years of imprisonment alloted.
