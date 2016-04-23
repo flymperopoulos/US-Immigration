@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Exploring Trends Over Time</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('img/immigration.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1 style='color:#FF9933'>Exploring Trends Over Time</h1>
+                        <span class="meta" style='color:#FF9933'>Posted by Casey Alvarado and Shivali Chandra on April 22, 2016</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <h2>Education, Employment, and Income through the years</h2>
+                    <p>
+                        Last time you <a href='http://flymperopoulos.github.io/US-Immigration/initial_data_exploration.html'>heard from us</a>, we planned to zoom out on the <a href='https://www.census.gov/acs/www/data/data-tables-and-tools/subject-tables/'>American Community Survey data set</a>. We planned to plot things such as income, education levels, school enrollment, and occupation across the years from 2006 to 2014 for the foreign born populations such as Latin America, Africa, Asia, North America, Oceania, and Europeans. We have appropriately done so and discovered some correlations. 
+                    </p>
+                    <p>
+                        First, we can look at the rates of people enrolled in college or graduate schools over the years. The graph below shows that there is a general upwards trend in the rates of people obtaining a college or graduate school degree. We noticed a particularly steep trend around 2009 and 2010. The rate of the number of all foreign born populations increases faster around 2009 and 2010. Oceania has a weird trend, which we are unsure how to explain? In comparison to the other groups, Oceania has a small number of people. We will be looking into a confidence value for these numbers.  
+                    </p>
+                    <figure>
+                        <img src='img/collegeOrGraduateOverTime.png' width='100%'>
+                    </figure>
+                    <p>In comparison, we also looked at plots of immigrant groups in the lowest income bracket and highest income bracket: <p>
+                    <figure>
+                        <img src='img/lowest_income.png' width='100%'>
+                    </figure>
+                    <figure>
+                        <img src='img/highest_income.png' width='100%'>
+                    </figure>
+                    <p>Between the years of 2009-2010, there is a definite spike in the percentage of those in the lowest income bracket, indicating that in those years, the economic recession had particularly strong effects. Interestingly enough, the percentage of those in the highest income bracket remains on a relatively positive slope throughout those years, signifying that people who were high earners may not have been affected as strongly by the recession. Another plot in this field is that of people under the poverty line:</p>
+                    <figure>
+                        <img src='img/below_poverty.png' width='100%'>
+                    </figure>
+                    <p>Once again, in the years 2009-2011 there is a definite increase in percentage of groups below the poverty level. Again, this has a definite correlation to the recession. We also looked at how employment was affected in those years: </p>
+                    <figure>
+                        <img src='img/unemployment.png' width='100%'>
+                    </figure>
+                    <p>Of all the graphs we made, this is perhaps the most telling. From 2008-2012, unemployment rates for every single group drastically rise, peaking in 2010. This also has a very strong relationship towards moving people into lower income brackets. Finally, we looked at how the percentage of immigrants in the workforce changes over time: </p>
+                    <figure>
+                        <img src='img/not_labor.png' width='100%'>
+                    </figure>
+                    <p>Beginning in 2008, the same time that unemployment rates rise, there is an increase in immigrants who are over 16 years of age and not in the labor force. Going back to education, this could indicate that more people were encouraged to leave the workforce in order to pursue higher education in order to gain access to higher paying jobs.</p>
+                    <p>We hypothesize that the increase in those earning higher education degrees came from two directions: first, the recession and need for more qualifications, and second, the improvements towards increasing access to higher education made by the Obama administration. This includes reforms for more manageable student loan debt, greater investments in the Pell Grant, expansions in education tax credits, and lower student loan interest rates, all implemented within the years 2008-2012. </p>
+
+                    <h2>Where Do Immigrants Go?</h2>
+                    <p>Our project is focused on learning not just what immigrants do in the US, but where they do it. The next dataset (<a href='https://github.com/skchandra/DataScienceUSImmigration/blob/master/lpr_2006.csv'>2006 example</a>) we looked at contained information for newly legally permanent residents each year by state. By looking at this information, we hoped to gain insight into where immigrants go, what the highest foreign born concentrations are in each state, and determine what insights these facts could give us. </p>
+                    <p>In order to look at where most immigrants tend to settle, we found the top 5 states of settlement by year for each immigrant population. We got the following lists:</p>
+                    Asia:
+                    <ul>
+                        <li>2006: California, New York, Texas, New Jersey, Illinois</li>
+                        <li>2007: California, New York, Texas, New Jersey, Illinois</li>
+                        <li>2008: California, New York, Texas, New Jersey, Illinois</li>
+                        <li>2009: California, New York, Texas, New Jersey, Illinois</li>
+                        <li>2010: California, New York, Texas, New Jersey, Illinois</li>
+                        <li>2011: California, New York, Texas, New Jersey, Illinois</li>
+                        <li>2012: California, New York, Texas, New Jersey, Illinois</li>
+                        <li>2013: California, New York, Texas, New Jersey, Illinois</li>
+                    </ul>
+                    Africa:
+                    <ul>
+                        <li>2006: New York, California, Maryland, Texas, Minnesota</li>
+                        <li>2007: New York, California, Maryland, Texas, Massachusetts</li>
+                        <li>2008: New York, Maryland, California, Minnesota, Texas</li>
+                        <li>2009: New York, Texas, Minnesota, California, Maryland</li>
+                        <li>2010: New York, Texas, Maryland, California, New Jersey</li>
+                        <li>2011: New York, Texas, Maryland, California, Massachusetts</li>
+                        <li>2012: New York, Texas, Maryland, California, Massachusetts</li>
+                        <li>2013: New York, Texas, Maryland, California, New Jersey</li>
+                    </ul>
+                    Northern America:
+                    <ul>
+                        <li>2006: Florida, New York, California, New Jersey, Texas</li>
+                        <li>2007: Florida, New York, California, New Jersey, Texas</li>
+                        <li>2008: Florida, New York, California, New Jersey, Texas</li>
+                        <li>2009: Florida, New York, California, New Jersey, Massachusetts</li>
+                        <li>2010: Florida, New York, California, New Jersey, Massachusetts</li>
+                        <li>2011: Florida, New York, California, New Jersey, Massachusetts</li>
+                        <li>2012: Florida, New York, California, New Jersey, Massachusetts</li>
+                        <li>2013: Florida, New York, California, New Jersey, Texas</li>
+                    </ul>
+                    Latin America:
+                    <ul>
+                        <li>2006: California, Florida, Texas, New York, New Jersey</li>
+                        <li>2007: California, Florida, Texas, New York, New Jersey</li>
+                        <li>2008: California, Texas, Florida, New York, Illinois</li>
+                        <li>2009: California, Texas, Florida, New York, New Jersey</li>
+                        <li>2010: California, Texas, Florida, New York, New Jersey</li> 
+                        <li>2011: California, Texas, Florida, New York, New Jersey</li>
+                        <li>2012: California, Texas, Florida, New York, Illinois</li>
+                        <li>2013: California, Texas, Florida, New York, New Jersey</li>
+                    </ul>
+                    Oceania:
+                    <ul>
+                        <li>2006: California, New York, Washington, Florida, Texas</li>
+                        <li>2007: California, New York, Washington, Hawaii, Texas</li>
+                        <li>2008: California, New York, Washington, Texas, Hawaii</li>
+                        <li>2009: California: New York, Washington, Texas, Florida</li>
+                        <li>2010: California, New York, Washington, Texas, Utah</li>
+                        <li>2011: California, New York, Washington, Texas, Utah</li>
+                        <li>2012: California, New York, Washington, Texas, Florida</li>
+                        <li>2013: California, New York, Washington, Texas, Utah</li>
+                    </ul>
+                    <p>Unsurprisingly, each group tends to settle overwhelmingly in states that have the highest concentration of people and opportunity. A few states that did strike us as surprising were Minnesota, Utah, and Illinois, because comparatively there is less opportunity for employment there, nor are there colleges or universities that would draw such large numbers of immigrants in a year. </p>
+                    <p>When looking at the reverse - top foreign-born populations in each state - we found some surprising information, such as the fact that North Americans are a larger group in Florida than Latin Americans. However, this could also be due to the fact that Central America was split between these two groups in this particular dataset, so redistribution of the groups may be necessary. In terms of visualizing this information, we are still looking at how to effectively show all our information without overwhelming readers (discussed below).</p>
+
+                    <h2>Making Visualizations</h2>
+                    <p>We want to analyze the location and any trends of where foreign born immigrants settle when they arrive at the United States. We found data (introduced above) that informs us of how many people of each foreign born population are naturalized or become legally permanent residents for every state. We believe that the best way to show this data is a spatial representation mapping where we map foreign born concentrations onto different states in the United States.</p>
+                    <p>One of our goals for visualization is showing all sides and all perspectives to how this data could be interpreted and let the reader decide how they want to use the aggregation of our data. We want to explore two views: the foreign born population concentration in each state and the top states where each foreign born population settles. </p>
+                    <p>First, the foreign born population view. For every foreign born population, we want to show their representation in each state. So for the Asian foreign born population, we would like to show a heat map of the United States where we show the binning of Asians in different states, where the states with the largest number of Asians that have become legalized or naturalized residents are the darkest and conversely, the states with the least number of Asians that have become legalized or naturalized are the lightest. We would want to show this for every year by having a heat map of the United States that changes colors, like <a href='http://helenjacksonanalytic.co.uk/EW_prop_price.html'>this</a> example of the property sales in the UK. Therefore, this would make one heat map that updated every year upon pressing the “replay” button. We would want to make this visualization for every foreign born population we have. We would allow the user to toggle or click on the foreign born population visualization they would want to see. When they log on, If the “Asians” foreign born population is on, then we would show them a heat map of the foreign born concentrations in each state during the first year, 2006. Then upon “replay”, we would show them the change in this heat map across the years. Then they would be able to click on another foreign born population, and they would have the same viewing experience.</p>
+                    <p>As for our second goal, we want to show the top states where each foreign born population becomes a legally permanent resident and a naturalized citizen and how that changes over time. We are not really sure how to display this for this to be visually appealing and we would like to think about this visualization a little bit more. We are thinking that perhaps another spatial visualization would be good where on the left we show stick people representing the number of people from a specific foreign born population that came to the United States during that year. Then on the right, we would put a fraction of those total stick people (again representing the fraction of the total foreign born population for that year) on the top three states where they settled the most. Something along these lines? However, our concerns were that in this instance, the size of the state might add a skewed perception that we do not want to include. We were thinking that creating a visualization like <a href='http://fivethirtyeight.com/features/where-your-state-gets-its-money/?ex_cid=538fb'>this</a> would perhaps be a good idea.</p>
+                    <h2>Next Steps</h2>
+                    <p>When we were plotting the results for the rates of Oceania foreign born population attending college or graduate school and income levels, we noticed weird spikes. We are not confident in how confident we should be in what these trends tells us, so we need to conduct a confidence value. Perhaps that will provide more insight into our confusion. </p>
+                    <p>Then, upon observing the graphs, we saw similar patterns in college or graduate school enrollment over time and income levels for most of the foreign born populations (Oceania was weird to interpret).We just saw similar patterns in the graphs. Of course, we know that in America if you get a college or graduate degree, the higher the chance of you obtaining a high paying job and therefore having a high income. We plan to run a correlation between education enrollment rates and income levels for each foreign born population to see if there is a large correlation between these two factors. It would be really interesting to run a correlation between the people enrolled here in the United States to obtain a higher degree and their income level as well as those foreign born members that enter the United States with a higher degree and their income level. This would provide more information as to if all foreign born people with higher degrees earn more, or just the people that acquire their higher degree in the United States. </p>
+                    <p>We have started working on our visualizations. We have agreed to make the first visualization look like the UK property pricing visualization, but instead we are making one heat map of the United States for every foreign born population. This heat map will update each year to show the naturalization and legal permanent resident trends over time. Next steps include finishing debugging this visualization. </p>
+                    <p>We have only started thinking about the design for the second visualization and are still ideating. Next steps including solidifying this visualization and coding it. </p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://github.com/skchandra/DataScienceUSImmigration">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">We would like to thank Paul Ruvolo for his guidance and help throughout the project.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
