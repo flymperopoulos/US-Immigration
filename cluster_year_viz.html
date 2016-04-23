@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+  .b.circle {
+    /*stroke: #000;*/
+    fill: #053A67;
+  }
+
+  .b.circle:hover {
+    fill: #813386;
+  }
+
+  .a.circle {
+    /*stroke: #000;*/
+    fill: #A05C00;
+  }
+
+  .a.circle:hover {
+    fill: #813386;
+  }
+
+
+  .axis {
+    font: 10px, sans-serif;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  .d3-tip {
+    line-height: 1;
+    font-weight: bold;
+    padding: 12px;
+    background: #000000;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+  }
+
+/* Creates a small triangle extender for the tooltip */
+  .d3-tip:after {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 10px;
+    width: 100%;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.8);
+    content: "\25BC";
+    position: absolute;
+    text-align: center;
+  }
+
+/* Style northward tooltips differently */
+  .d3-tip.n:after {
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
+  }
+
+</style>
+<body>
+  <script type="text/javascript" src="d3.min.js"></script>
+  <!-- <script src="/home/nshlapo/Documents/DataSci/d3js_projects/d3.min.js"></script> -->
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <script>
+
+    var margin = {top: 20, right: 20, bottom: 30, left: 80},
+        width = 1000 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+    var data = [
+      {word: "hello", year: 1990, count: 4, type: "bill"},
+      {word: "hello", year: 1990, count: 8, type: "article"},
+      {word: "crimson", year: 1991, count: 25, type: "bill"},
+      {word: "hello", year: 1991, count: 22, type: "article"},
+      {word: "butt", year: 1992, count: 20, type: "bill"},
+      {word: "hello", year: 1995, count: 12, type: "article"},
+      {word: "blue", year: 1992, count: 2, type: "bill"},
+      {word: "blue", year: 1994, count: 18, type: "article"},
+      {word: "blue", year: 1994, count: 8, type: "bill"},
+      {word: "james", year: 1990, count: 4, type: "bill"},
+      {word: "james", year: 1990, count: 8, type: "article"},
+      {word: "king", year: 1991, count: 25, type: "bill"},
+      {word: "yo", year: 1991, count: 22, type: "article"},
+      {word: "dupe", year: 1992, count: 20, type: "bill"},
+      {word: "james", year: 1995, count: 12, type: "article"},
+      {word: "jean", year: 1992, count: 2, type: "bill"},
+      {word: "jean", year: 1994, count: 18, type: "article"},
+      {word: "jean", year: 1994, count: 8, type: "bill"}
+    ];
+
+    data.sort(function(a, b){
+      return b.count - a.count;
+    });
+
+    var words = new Set(),
+        years = new Set(),
+        max = data[0].count,
+        buff = 5;
+
+    for (var i=0; i < data.length; i++) {
+      words.add(data[i].word);
+      years.add(data[i].year);
+    }
+
+    words = Array.from(words);
+    years = Array.from(years);
+
+    years.sort(function(a,b){
+      return a - b;
+    })
+
+    var radScale = d3.scale.linear()
+      .domain([0, max])
+      .range([0, (d3.min([height/words.length, width/years.length]) - buff)/2]);
+
+    var sep = radScale(max) + buff;
+
+    var x = d3.scale.ordinal()
+      .domain(years)
+      .rangePoints([0 + sep, width-sep]);
+
+    var y = d3.scale.ordinal()
+      .domain(words)
+      .rangePoints([height - sep, 0 + sep])
+
+    var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+    var tip = d3.tip()
+      .attr('class', 'd3-tip')
+      .offset([-10, 0])
+      // .html(function(d) {return "<strong>Mentions:</strong> <span style='color:#813386'>" + d.count + "</span>";});
+      .html(function(d) {return "<span style='color:#813386'>" + d.count + "</span>   <strong>Mentions</strong>";});
+
+    var svg = d3.select("body").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    svg.call(tip);
+
+    svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+    svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+    svg.selectAll("circle")
+      .data(data)
+      .enter().append("circle")
+      .attr("cx", function(d) {return x(d.year);})
+      .attr("cy", height/2)
+      .attr("r", function(d) {return radScale(d.count);})
+      .on("mouseover", tip.show)
+      .on("mouseout", tip.hide)
+      .attr("class", function(d) {
+        var returnClass;
+        if (d.type==="bill") {returnClass="b circle";}
+        else if (d.type==="article") {returnClass="a circle";}
+        return returnClass;
+      })
+      .transition()
+      .delay(250)
+      .duration(2000)
+      .attr("cy", function(d) {return y(d.word);});
+
+  </script>
+</body>

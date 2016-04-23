@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+  .b.circle {
+    /*stroke: #000;*/
+    fill: #053A67;
+  }
+
+  .b.circle:hover {
+    fill: #813386;
+  }
+
+  .a.circle {
+    /*stroke: #000;*/
+    fill: #A05C00;
+  }
+
+  .a.circle:hover {
+    fill: #813386;
+  }
+
+  .next {
+    height: 30;
+    width: 50;
+  }
+
+  .axis {
+    font: 10px, sans-serif;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  .d3-tip {
+    line-height: 1;
+    font-weight: bold;
+    padding: 12px;
+    background: #000000;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+  }
+
+/* Creates a small triangle extender for the tooltip */
+  .d3-tip:after {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 10px;
+    width: 100%;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.8);
+    content: "\25BC";
+    position: absolute;
+    text-align: center;
+  }
+
+/* Style northward tooltips differently */
+  .d3-tip.n:after {
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
+  }
+
+</style>
+<body>
+  <script type="text/javascript" src="d3.min.js"></script>
+  <!-- <script src="/home/nshlapo/Documents/DataSci/d3js_projects/d3.min.js"></script> -->
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <button type="button" class="next">Next</button>
+  <script>
+
+    var margin = {top: 20, right: 20, bottom: 30, left: 80},
+        width = 1000 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+    var data = [
+      {year: 1990, count: 8, type: "bill"},
+      {year: 1990, count: 16, type: "article"},
+      {year: 1991, count: 50, type: "bill"},
+      {year: 1991, count: 44, type: "article"},
+      {year: 1992, count: 40, type: "bill"},
+      {year: 1992, count: 4, type: "article"},
+      {year: 1994, count: 36, type: "article"},
+      {year: 1994, count: 30, type: "bill"},
+      {year: 1995, count: 12, type: "article"},
+      {year: 1995, count: 12, type: "article"}
+    ];
+
+    data.sort(function(a, b){
+      return b.count - a.count;
+    });
+
+    var years = new Set(),
+        max = data[0].count,
+        buff = 5;
+
+    for (var i=0; i < data.length; i++) {
+      years.add(data[i].year);
+    };
+
+    years = Array.from(years);
+
+    years.sort(function(a,b){
+      return a - b;
+    });
+
+    var radScale = d3.scale.linear()
+      .domain([0, max])
+      .range([0, (width/years.length - buff)/2]);
+
+    var sep = radScale(max) + buff;
+
+    var x = d3.scale.ordinal()
+      .domain(years)
+      .rangePoints([0 + sep, width-sep]);
+
+    var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom");
+
+    var tip = d3.tip()
+      .attr('class', 'd3-tip')
+      .offset([-10, 0])
+      .html(function(d) {return "<span style='color:#813386'>" + d.count + "</span>   <strong>Mentions</strong>";});
+
+    var svg = d3.select("body").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    svg.call(tip);
+
+    svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+    // svg.append("g")
+    //   .attr("class", "y axis")
+    //   .call(yAxis);
+
+    circles = svg.selectAll("circle")
+      .data(data)
+      .enter().append("circle")
+      .attr("cx", function(d) {return x(d.year);})
+      .attr("cy", height/2)
+      .attr("r", function(d) {return radScale(d.count);})
+      .on("mouseover", tip.show)
+      .on("mouseout", tip.hide)
+      .attr("class", function(d) {
+        var returnClass;
+        if (d.type==="bill") {returnClass="b circle";}
+        else if (d.type==="article") {returnClass="a circle";}
+        return returnClass;
+      });
+
+    d3.select("button")
+      .attr("value", "Next")
+      .attr("type", "button")
+      .attr("class", "next")
+      .style("color", "green")
+      // .on("click", function() {
+      //   circles.transition()
+      //     .delay(250)
+      //     .duration(2000).style("opacity", 0);})
+      ;
+
+  </script>
+</body>
