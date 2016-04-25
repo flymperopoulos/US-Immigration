@@ -82,7 +82,20 @@
                         <p>We had decided that the best way to complement the other immigration team’s work was to find the years which have been most influential in shaping and changing the United States’ stance on immigration and foreigners.</p>
                         <p>We each separately constructed scripts to find important years to analyzed our separate datasets and found correlations.</p>
                         <p>We also start using clustering and visualization with d3.</p>
-                        
+                    <h2>US news</h2>  ---- Zhecan Wang(James)
+                        <p>Since last phase, I already wrote a script (<a href="https://github.com/flymperopoulos/US-Immigration/blob/US_news/News_Scrapping.py">source code</a>)to stream newspaper articles which mentions “immigration” in either their headlines, contents. In the end, I have stored around 30000 articles from 1850 to 2005 which somehow mentions the keyword “immigration”. I plot the frequency of newspaper articles mentioned “immigration” across years. The followings are part of the results:</p>
+                        <p>As we can see from the pictures above, there are some interesting peaks when we zoom into certain ranges of years.</p>
+                        <p>Besides, I also devide years from 1850 -2005 into different bins and use Indico’s API to extract the important keywords of these bins. The followings are part of the results:</p>
+                        <p>The above pictures show top keywords of certain bins, however they don’t seem very interesting. After looking through all the top words of around 10 - 20 bins from 1850 to 2002, we find that all the keywords are too general. So we decide to pick some years of peaks in which there are a lot of newspaper published about immigration from the year frequency pictures before and then dive deeper to only focus on the keywords of those years instead of all the years in the next phase.</p>
+                        <p>I also tried to implement the visualization of word cloud in D3, the following is a picture of world cloud for a bin of around 10 years.</p>
+                        <p>However, again. Those words are too general and we cannot extract important insights from them.</p>
+                        <p>Next steps, in order to better find relationships among years, we choose to do document clustering. We used tf-idf to generate document feature vector matrix for clustering purpose.</p>
+                        <p>We choose K-means to experiment first. After tuning the parameters, the result of clustering articles from 1997 - 2002 are followings:</p>
+                        <p>The five clusters are all very interesting and  the words really make themselves into consistent groups. These are very exciting! I also plot the year distribution of these clusters. As followings:</p>
+                        <p>As you can see, some of the clusters center around specific years and some others are a bit general. The more specific ones seem definitely more interesting.</p>
+                        <p>The following is another overall visualization of the cluster result: </p>
+                        <p>As another part of my learning goal, I also start searching about different cluster algorithms, I learned the details of how to implement both K means and Hierarchy clustering algorithms. The code of implementing hierarchy algorithm in pure python can be found here (<a href="https://github.com/flymperopoulos/US-Immigration/blob/US_news/HierarchicalClustering.py">source code</a>).</p>
+
                     <div id="viz">
                     </div>
                 </div>
