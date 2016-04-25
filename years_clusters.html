@@ -105,11 +105,27 @@
 
                         
                         <img src="img/Zhecan_Wang_StoryII/%5C%5C.png">
-                        
+
                         <p>However, again. Those words are too general and we cannot extract important insights from them.</p>
                         <p>Next steps, in order to better find relationships among years, we choose to do document clustering. We used tf-idf to generate document feature vector matrix for clustering purpose.</p>
+
+                        <img src="img/Zhecan_Wang_StoryII/png%3Bbase64c0125ae0964c3874.png">                        
+
+
                         <p>We choose K-means to experiment first. After tuning the parameters, the result of clustering articles from 1997 - 2002 are followings:</p>
+
+                        <img src="img/Zhecan_Wang_StoryII/png%3Bbase641ad7bf92f39110da.png"> 
+
+
                         <p>The five clusters are all very interesting and  the words really make themselves into consistent groups. These are very exciting! I also plot the year distribution of these clusters. As followings:</p>
+
+                        <img src="img/Zhecan_Wang_StoryII/png%3Bbase64fbfff9fb3228313e.png"> 
+                        <img src="img/Zhecan_Wang_StoryII/png%3Bbase6484c5773fb2c4e5a1.png"> 
+                        <img src="img/Zhecan_Wang_StoryII/png%3Bbase645c9347c16bd0b039.png"> 
+                        <img src="img/Zhecan_Wang_StoryII/png%3Bbase6438c27898199bf7b.png"> 
+                        <img src="img/Zhecan_Wang_StoryII/png%3Bbase6488570cc316cebd96.png"> 
+
+                        
                         <p>As you can see, some of the clusters center around specific years and some others are a bit general. The more specific ones seem definitely more interesting.</p>
                         <p>The following is another overall visualization of the cluster result: </p>
                         <p>As another part of my learning goal, I also start searching about different cluster algorithms, I learned the details of how to implement both K means and Hierarchy clustering algorithms. The code of implementing hierarchy algorithm in pure python can be found here (<a href="https://github.com/flymperopoulos/US-Immigration/blob/US_news/HierarchicalClustering.py">source code</a>).</p>
