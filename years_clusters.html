@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Immigration in America</title>
+    <title>Clean Blog - Sample Post</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -21,6 +21,9 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- d3 Visualization CSS -->
+    <link href="css/d3-viz.css" rel="stylesheet">
 
 </head>
 
@@ -39,6 +42,7 @@
                 </button>
             </div>
 
+            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
@@ -46,68 +50,39 @@
                     </li>
                 </ul>
             </div>
+            <!-- /.navbar-collapse -->
         </div>
+        <!-- /.container -->
     </nav>
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('img/ellis.jpg')">
+    <header class="intro-header" style="background-image: url('img/pastel.png')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="site-heading">
-                        <h1>Immigration in America</h1>
-                        <hr class="small">
-                        <span class="subheading">Data Science 2016, Olin College</span>
+                    <div class="post-heading">
+                        <h1>Important Years and Clustering</h1>
+                        <h2 class="subheading">Our second project story</h2>
+                        <span class="meta">Posted by Zhecan Wang, Nur Shalapobersky, Filippos Lymperopoulos on <b>April 24, 2016</span>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            	<div class="post-preview">
-                    <a href="years_clusters.html">
-                        <h2 class="post-title">
-                           Important Years and Clustering
-                        </h2>
-                    </a>
-                    <p class="post-meta">Posted by Zhecan Wang, Nur Shalapobersky, Filippos Lymperopoulos on <b>April 24, 2016</b></p>
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <h2>Previously in our project</h2>
+                    <div id="viz">
+                    </div>
                 </div>
-                <hr>
-                <div class="post-preview">
-                    <a href="change_over_time.html">
-                        <h2 class="post-title">
-                           Exploring Trends Over Time
-                        </h2>
-                    </a>
-                    <p class="post-meta">Posted by Casey Alvarado, Shivali Chandra on <b>April 22, 2016</b></p>
-                </div>
-                <hr>
-            	<div class="post-preview">
-                    <a href="initial_data_exploration.html">
-                        <h2 class="post-title">
-                           Initial Data Exploration
-                        </h2>
-                    </a>
-                    <p class="post-meta">Posted by Casey Alvarado, Shivali Chandra on <b>April 4, 2016</b></p>
-                </div>
-                <hr>
-                <div class="post-preview">
-                    <a href="post.html">
-                        <h2 class="post-title">
-                           Project Story 1
-                        </h2>
-                    </a>
-                    <p class="post-meta">Posted by Zhecan Wang, Nur Shalapobersky, Filippos Lymperopoulos on <b>April 4, 2016</b></p>
-                </div>
-                <hr>
             </div>
         </div>
-    </div>
+    </article>
 
     <hr>
 
@@ -118,7 +93,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <ul class="list-inline text-center">
                         <li>
-                            <a href="https://github.com/flymperopoulos/US-Immigration/">
+                            <a href="https://github.com/flymperopoulos/US-Immigration/" target="_blank">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-github fa-stack-1x fa-inverse"></i>
@@ -138,8 +113,18 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
+    <!-- Various d3 scripts -->
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+    <!-- d3 visualization we wrote -->
+    <script src="js/cluster_year_viz.js"</script>
+
     <!-- Custom Theme JavaScript -->
     <script src="js/clean-blog.min.js"></script>
+
+
+
 
 </body>
 
