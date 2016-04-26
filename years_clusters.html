@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Clean Blog - Sample Post</title>
+    <title>Cluster Analysis</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -24,7 +24,9 @@
 
     <!-- d3 Visualization CSS -->
     <link href="css/d3-viz.css" rel="stylesheet">
-
+    <style>
+    p    { font-weight: normal}
+    </style>
 </head>
 
 <body>
@@ -77,47 +79,50 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <h2>Overview</h2>
-                        <p>Previously in our project, we all went to explore different datasets like bills, newspaper articles and so on and did some simple analyzing.</p>
-                        <p>Now that we had all of our data pre-processed and ready to analyze we wanted to begin with a basic exploration over time in order to point out years and trends that we could explore further.</p>
-                        <p>We had decided that the best way to complement the other immigration team’s work was to find the years which have been most influential in shaping and changing the United States’ stance on immigration and foreigners.</p>
-                        <p>We each separately constructed scripts to find important years to analyzed our separate datasets and found correlations.</p>
-                        <p>We also start using clustering and visualization with d3.</p>
-                    <h2>US news</h2>  ---- Zhecan Wang(James)
-                        <p>Since last phase, I already wrote a script (<a href="https://github.com/flymperopoulos/US-Immigration/blob/US_news/News_Scrapping.py">source code</a>)to stream newspaper articles which mentions “immigration” in either their headlines, contents. In the end, I have stored around 30000 articles from 1850 to 2005 which somehow mentions the keyword “immigration”. I plot the frequency of newspaper articles mentioned “immigration” across years. The followings are part of the results:</p>
-                        
-                        <img src="img/Zhecan_Wang_StoryII/png%3Bbase6415c70221082a0bba.png">
-                        <img src="img/Zhecan_Wang_StoryII/png%3Bbase64840295898e90792d.png">
-                        <img src="img/Zhecan_Wang_StoryII/png%3Bbase642a81f58fc4b76448.png">
+                    <p>We have thus far explored datasets on US bills, newspaper articles, government expenditure spreadsheets and others and performed independent analyses on all these different sources and document how different parts of the conutry have reacted to the hot topic of Immigration.</p>
+                    <p>After collecting and pre-processing these data sources we were interested in beginning a basic exploration through time. The goal of this exploration was to point out specific years and trends that we came across and bring to the table ideas for further dicsussion and presentation.</p>
+                    <p>We concluded that the best way to complement the other immigration team’s work was to find the years that have been influential in shaping and changing the United States’ stance on immigration and foreigners.</p>
+                    <p>We each separately constructed scripts to find important years to analyze our separate datasets and came up with several interesting insights and correlations.</p>
+                    <p>Finally, we extensively analyzed methods of clustering and bagan vizualizing our conclusions using D3.js, a data vizualization library, written in Javascript.</p>
+                    <h2>US news</h2>  
+                        <p>Since the last phase, we had already written a script - <a href="https://github.com/flymperopoulos/US-Immigration/blob/US_news/News_Scrapping.py">source code here</a> - to stream newspaper articles partaining to “immigration” in either their headlines or  repsective contents. We stored approximately 30000 articles from 1850 to 2005 in csv format. We finally plotted the frequency of newspaper articles mentioning “immigration” across different respective years. The followings graphs are part of the results we obtained. </p>
+                        <figure>
+                        <img src="img/Zhecan_Wang_StoryII/png%3Bbase6415c70221082a0bba.png" width="100%">
+                        </figure>
+
+                        <figure>
+                        <img src="img/Zhecan_Wang_StoryII/png%3Bbase64840295898e90792d.png" width="100%">
+                        </figure>
+
+                        <figure>
+                        <img src="img/Zhecan_Wang_StoryII/png%3Bbase642a81f58fc4b76448.png" width="100%">
+                        </figure>
 
 
-
-
-                        <p>As we can see from the pictures above, there are some interesting peaks when we zoom into certain ranges of years.</p>
-                        <p>Besides, I also devide years from 1850 -2005 into different bins and use Indico’s API to extract the important keywords of these bins. The followings are part of the results:</p>
+                        <p>As one can see, there are some certain interesting peaks, when one zooms into specific ranges of years.</p>
+                        <p>We further devided years from 1850 -2005 into different bins and used Indico’s API to extract the important keywords from those bins, as shown in the figures that follow.</p>
 
                         <img src="img/Zhecan_Wang_StoryII/png%3Bbase64a2f13148771b072.png">
                         <img src="img/Zhecan_Wang_StoryII/png%3Bbase6460dd0bbfc8967da4.png">
                         
 
 
-                        <p>The above pictures show top keywords of certain bins, however they don’t seem very interesting. After looking through all the top words of around 10 - 20 bins from 1850 to 2002, we find that all the keywords are too general. So we decide to pick some years of peaks in which there are a lot of newspaper published about immigration from the year frequency pictures before and then dive deeper to only focus on the keywords of those years instead of all the years in the next phase.</p>
-                        <p>I also tried to implement the visualization of word cloud in D3, the following is a picture of world cloud for a bin of around 10 years.</p>
-
+                        <p>Looking carefully in the figures above, none of the results appear to be very interesting. After searching through all the top words of around 10 - 20 bins from 1850 to 2002, we found that the majority of the keywords were too general. We, therefore, decided to pick the years, where there were a lot of newspaper published. We then dove deeper to only focus on the keywords of those years instead of all the years in the next phase.</p>
+                        <p>We further implemented a visualization of a word cloud using D3.js. The following is a picture of a world cloud for a bin of around 10 years.</p>
                         
                         <img src="img/Zhecan_Wang_StoryII/%5C%5C.png">
 
-                        <p>However, again. Those words are too general and we cannot extract important insights from them.</p>
-                        <p>Next steps, in order to better find relationships among years, we choose to do document clustering. We used tf-idf to generate document feature vector matrix for clustering purpose.</p>
+                        <p>Such words are, once again, too general and we cannot extract important insights from them.</p>
+                        <p>In order to better find relationships among years, we choose to do document clustering. We used tf-idf to generate a document feature vector matrix for our clustering algorithm.</p>
 
                         <img src="img/Zhecan_Wang_StoryII/png%3Bbase64c0125ae0964c3874.png">                        
+                        <p>We decided to focus on K-means first. After tuning the parameters, the result of clustering articles from 1997 - 2002, is shown as follows. </p>
 
+                        <figure>
+                        <img src="img/Zhecan_Wang_StoryII/png%3Bbase641ad7bf92f39110da.png" width="100%"> 
+                        </figure>
 
-                        <p>We choose K-means to experiment first. After tuning the parameters, the result of clustering articles from 1997 - 2002 are followings:</p>
-
-                        <img src="img/Zhecan_Wang_StoryII/png%3Bbase641ad7bf92f39110da.png"> 
-
-
-                        <p>The five clusters are all very interesting and  the words really make themselves into consistent groups. These are very exciting! I also plot the year distribution of these clusters. As followings:</p>
+                        <p>The five clusters are all very interesting and the words really make themselves into consistent groups. Finally, we plot the year distribution of these clusters, as one can see below.</p>
 
                         <img src="img/Zhecan_Wang_StoryII/png%3Bbase64fbfff9fb3228313e.png"> 
                         <img src="img/Zhecan_Wang_StoryII/png%3Bbase6484c5773fb2c4e5a1.png"> 
@@ -126,12 +131,35 @@
                         <img src="img/Zhecan_Wang_StoryII/png%3Bbase6488570cc316cebd96.png"> 
 
                         
-                        <p>As you can see, some of the clusters center around specific years and some others are a bit general. The more specific ones seem definitely more interesting.</p>
-                        <p>The following is another overall visualization of the cluster result: </p>
-                        <p>As another part of my learning goal, I also start searching about different cluster algorithms, I learned the details of how to implement both K means and Hierarchy clustering algorithms. The code of implementing hierarchy algorithm in pure python can be found here (<a href="https://github.com/flymperopoulos/US-Immigration/blob/US_news/HierarchicalClustering.py">source code</a>).</p>
+                        <p>Certain clusters center around specific years and some others are a bit more general. The more specific ones seem definitely more interesting.</p>
+                        <p>In order to address all learning goals for this project, some of us started looking into different clustering algorithms. We got a lot of information as to how to implement both K means and Hierarchy clustering algorithms and example code of implementing the later can be found here (<a href="https://github.com/flymperopoulos/US-Immigration/blob/US_news/HierarchicalClustering.py">source code</a>).</p>
 
                     <div id="viz">
                     </div>
+
+                    <h2>US Congress and Bills</h2>  
+                    <p>Up until this point, we have managed to create an API (<a href="https://github.com/flymperopoulos/US-Immigration/blob/congress_etc/data-scraping-2.ipynb">source code here</a>) that successfully pulls information on all bills and votes present in Congresses 104 to 107, i.e. 1994 to 2002. When trying to access congresses of most recent years or years that prior to 2002, we realized that the json architecture significantly differed and there were too many exceptions to take care of in our API that we decided to zoom into the afore-mentioned years.</p>
+
+                    <p>We collected all bills relevant to immigration and performed a variety of different methods with our newly-gained knowledge from this mid-project phase. We implemented clustering and looked deeply into tf-idf vectorizing to be able to segment our immigration-centered bills with years and specific bills that we considered important.</p>
+
+                    <p>A topic that troubled us for quite some time was including the correct amount of information in our analysis. Several bills had been revisited multiple times and we wanted to make sure that when tf idf and other grouping, i.e. clustering, methods were applied on the data set, no specific sections or bills content were diminished in their importance because of their overwhelming presence due to multiple number of re-voting procedures.  As a result, we decide to keep the “most recent” version of all bills present in our dataset.</p>
+
+                    <p>As one can see below, we have included a depiction of the clustering of the unique bills related to immigration as extracted through our API from Congresses 104 to 107. Certain evident groupings can be seen. </p>
+
+                    <figure>
+                    <img src="clusters.png" width="100%">
+                    </figure>
+
+                    <p>
+                    After we completed the K-Means clustering operations, we were very interested in exploring different clustering algorithms and looked into the implementation of hierarchical clustering algorithm from scratch as alluded above. Finally, we decided on looking at the frequency of the bills through time and understanding the most important words/topics that rose during a peak year that coincided with that from the news dataset. 
+                    </p>
+                        
+                    <figure>
+                    <img src="years.png" width="100%">
+                    </figure>
+
+                    <p>For the final portion of the project we are looking into further understanding the connections between our different data sources and their link to immigration and developing compelling visualizations that represent the end result to our viewers.
+                    </p>
                 </div>
             </div>
         </div>
