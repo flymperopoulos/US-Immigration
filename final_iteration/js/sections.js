@@ -263,21 +263,25 @@ var scrollVis = function() {
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxisBar);
+
+
+    loadVid = function() {
+      home_media.append("foreignObject")
+        .attr("class", "home_media")
+        .attr("x", 115)
+        .attr("y", 125)
+        .attr("width", 400)
+        .attr("height", 310)
+        .append("xhtml:body")
+        .html('<iframe width="420" height="315" src="https://www.youtube.com/embed/Ixi9_cciy8w?rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1" frameborder="0" allowfullscreen></iframe>');
+      };
+
     home_media.select(".x.axis").style("opacity", 0);
-
-    home_media.append("svg:image")
-      .attr("class", "home_media")
-      .attr("xlink:href", "img/no_econ.png")
-      .attr("x", 0)
-      .attr("y", -height*0.1)
-      .attr("height", height)
-      .attr("width", width)
-
     home_media.selectAll(".home_media")
       .attr("opacity", 0);
 
       /**
-       * VIZ 2 - time graph 
+       * VIZ 2 - time graph
        * class: general_1
        */
       var general_1 = g.append("svg")
@@ -417,7 +421,7 @@ var scrollVis = function() {
           var article_y = d3.scale.linear()
               .domain([article_min, article_max])
               .range([height - margin.bottom, margin.top]);
-          
+
           var xAxis = d3.svg.axis()
               .scale(x)
               .orient("bottom")
@@ -511,7 +515,7 @@ var scrollVis = function() {
           var marker_bill = general_2.append('g')
               .attr("class", "marker")
               .attr("transform", "translate(" + (x(1997) - mark.width/2) + "," + mark.height + ")");
-          
+
           var marker_dhs = general_2.append('g')
               .attr("class", "marker")
               .attr("transform", "translate(" + (x(1996) - mark.width/2) + "," + mark.height + ")");
@@ -789,12 +793,12 @@ var scrollVis = function() {
                .attr("class", "x axis")
                .attr("transform", "translate(0," + height/1.15 + ")")
                .call(xAxis)
-               .selectAll("text")  
+               .selectAll("text")
                    .style("text-anchor", "end")
                    .attr("dx", "-.8em")
                    .attr("dy", ".15em")
                    .attr("transform", function(d) {
-                       return "rotate(-65)" 
+                       return "rotate(-65)"
                    });
 
            top_subjects.append("g")
@@ -848,12 +852,12 @@ var scrollVis = function() {
               .attr("class", "x axis")
               .attr("transform", "translate(0," + height/1.15 + ")")
               .call(xAxis)
-              .selectAll("text")  
+              .selectAll("text")
                   .style("text-anchor", "end")
                   .attr("dx", "-.8em")
                   .attr("dy", ".15em")
                   .attr("transform", function(d) {
-                      return "rotate(-65)" 
+                      return "rotate(-65)"
                   });
 
           voting.append("g")
@@ -872,7 +876,7 @@ var scrollVis = function() {
             .attr("x", function(d) { return x(d["bills"]); })
             .attr("width", x.rangeBand())
             .attr("y", function(d) { return y(d["yes_dem"])-70; })
-            .attr("height", function(d) { return height - y(d["yes_dem"]); });  
+            .attr("height", function(d) { return height - y(d["yes_dem"]); });
         });
 
         /**
@@ -934,7 +938,7 @@ var scrollVis = function() {
              var article_y = d3.scale.linear()
                  .domain([article_min, article_max])
                  .range([height - margin.bottom, margin.top]);
-             
+
              var xAxis = d3.svg.axis()
                  .scale(x)
                  .orient("bottom")
@@ -1028,7 +1032,7 @@ var scrollVis = function() {
              var marker_bill = final_bill.append('g')
                  .attr("class", "marker")
                  .attr("transform", "translate(" + (x(1997) - mark.width/2) + "," + mark.height + ")");
-  
+
              marker_bill.append('rect')
                  .attr('width', mark.width)
                  .attr('height', mark.height)
@@ -1128,7 +1132,7 @@ var scrollVis = function() {
             x0.domain(data.map(function(d) { return d.State; }));
             x1.domain(ageNames).rangeRoundBands([0, x0.rangeBand()]);
             y.domain([0, d3.max(data, function(d) { return d3.max(d.ages, function(d) { return d.value; }); })]);
-            
+
             multi_grap_articles.append("g")
                 .attr("class", "x axis")
                 .attr("transform", "translate(0," + height + ")")
@@ -1155,7 +1159,7 @@ var scrollVis = function() {
                 .attr("y", function(d) { return y(d.value); })
                 .attr("height", function(d) { return height - y(d.value); })
                 .style("fill", function(d) { return color(d.name); });
-            
+
             var legend = multi_grap_articles.selectAll(".legend")
                 .data(ageNames.slice().reverse())
               .enter().append("g")
@@ -1297,6 +1301,8 @@ var scrollVis = function() {
       .duration(600)
       .attr("opacity", 1.0);
 
+    loadVid()
+
     g.selectAll(".bills_bubbles")
       .transition()
       .duration(600)
@@ -1327,6 +1333,8 @@ var scrollVis = function() {
       .transition()
       .duration(600)
       .attr("opacity", 0.0);
+
+    g.selectAll("foreignObject").remove()
 
     g.selectAll(".general_1")
       .transition()
@@ -1437,7 +1445,7 @@ var scrollVis = function() {
       .transition()
       .duration(600)
       .style("opacity", 0);
-  
+
     g.selectAll(".final_bill")
       .transition()
       .duration(200)
