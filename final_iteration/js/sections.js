@@ -83,7 +83,7 @@ var scrollVis = function() {
 
   // constants to define the size
   // and margins of the vis area.
-  
+
 
   var x = d3.scale.ordinal()
     .rangeRoundBands([width*0.1, width*0.95], 0.1);
@@ -259,19 +259,14 @@ var scrollVis = function() {
       .call(xAxisBar);
     g.select(".x.axis").style("opacity", 0);
 
-    g.append("svg:image")
+    g.append("foreignObject")
       .attr("class", "sub-title openvis-title")
-      .attr("xlink:href", "js/pic1.png")
-      .attr("x", 0)
-      .attr("y", -height*0.1)
-      .attr("height", height)
-      .attr("width", width)
-
-    g.append("text")
-      .attr("class", "sub-title openvis-title")
-      .attr("x", width / 2)
-      .attr("y", height * 0.1)
-      .text("How pervasive was sexual abuse in the Catholic Church from 1950 to 2002?");
+      .attr("x", 115)
+      .attr("y", 125)
+      .attr("width", 400)
+      .attr("height", 310)
+      .append("xhtml:body")
+      .html('<iframe src="https://www.youtube.com/embed/Ixi9_cciy8w?autoplay=1&controls=0&showinfo=0&modestbranding=1" allowfullscreen="" frameborder="0" height="315" width="420"></iframe>');
 
     g.selectAll(".openvis-title")
       .attr("opacity", 0);
@@ -511,7 +506,7 @@ var scrollVis = function() {
         .style("fill", "#D9D9D9")
         .text("Immigrants Per Year Since 1820");
     });
-    
+
     g.selectAll(".growth")
       .style("opacity", 0);
 
@@ -520,7 +515,6 @@ var scrollVis = function() {
 
     g.selectAll(".dots")
       .style("opacity", 0);
-
 
     g.selectAll(".line")
       .style("opacity", 0);
@@ -554,7 +548,7 @@ var scrollVis = function() {
     for(var i = 0; i < 9; i++) {
       updateFunctions[i] = function() {};
     }
-    updateFunctions[7] = callToAction;
+    // updateFunctions[7] = callToAction;
   };
 
   /**
@@ -601,10 +595,16 @@ var scrollVis = function() {
    *
    */
   function showGrid() {
-    g.selectAll(".sub-title")
+    g.selectAll(".growth")
       .transition()
-      .duration(0)
-      .attr("opacity", 0);
+      .duration(200)
+      .style("opacity", 0);
+
+
+  //   g.selectAll(".sub-title")
+  //     .transition()
+  //     .duration(0)
+  //     .attr("opacity", 0);
 
     g.selectAll(".square")
       .transition()
@@ -826,10 +826,15 @@ var scrollVis = function() {
    *  how far user has scrolled in section
    */
   function callToAction(progress) {
-    g.selectAll(".growth")
+    // g.selectAll(".growth")
+    //   .transition()
+    //   .duration(200)
+    //   .style("opacity", 0);
+
+    g.selectAll(".sub-title")
       .transition()
-      .duration(200)
-      .style("opacity", 0);
+      .duration(0)
+      .attr("opacity", 0);
 
     g.selectAll(".line")
       .transition()
