@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
-    <script type="text/javascript" src="d3.min.js"></script>
     <style type="text/css">
         .axis path,
         .axis line {
@@ -15,23 +14,27 @@
             font-size: 11px;
         }
     </style>
+    <script type="text/javascript" src="d3.min.js"></script>
 </head>
 <body>
-  <!-- <script src="/home/nshlapo/Documents/DataSci/d3js_projects/d3.min.js"></script> -->
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 
   <script>
-    var margin = {top: 20, right: 20, bottom: 30, left: 80},
+    var margin = {top: 20, right: 80, bottom: 30, left: 80},
         width = 1000 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
-    var data_dhs = [{"count": 202, "year": 2000},
-                    {"count": 215, "year": 2001},
-                    {"count": 179, "year": 2002},
-                    {"count": 199, "year": 2003},
-                    {"count": 134, "year": 2003},
-                    {"count": 176, "year": 2010}];
+    // var data_dhs = [{"count": 202, "year": 2000},
+    //                 {"count": 215, "year": 2001},
+    //                 {"count": 179, "year": 2002},
+    //                 {"count": 199, "year": 2003},
+    //                 {"count": 134, "year": 2003},
+    //                 {"count": 176, "year": 2010}];
+
+    // console.log(data_dhs);
+    data_dhs = d3.csv('../d3_import.csv', function(error, data_dhs) {
+        console.log(data_dhs)
 
     var data_news = [{"count": 152, "year": 2000},
                      {"count": 189, "year": 2002},
@@ -48,11 +51,12 @@
                       {"count":171, "year": 2010}];
 
     var years = new Set(),
-        counts = new Set();
+        counts = new Set(),
+        dhs_counts = new Set();
 
     for (var i=0; i < data_dhs.length; i++) {
         years.add(data_dhs[i].year);
-        counts.add(data_dhs[i].count);
+        dhs_counts.add(data_dhs[i].count);
     };
 
     for (var i=0; i < data_news.length; i++) {
@@ -66,12 +70,15 @@
     }
 
     years = Array.from(years);
-    counts = Array.from(counts)
+    counts = Array.from(counts);
+    dhs_counts = Array.from(dhs_counts);
 
     var min_year = d3.min(years),
         max_year = d3.max(years),
         min_count = d3.min(counts),
-        max_count = d3.max(counts);
+        max_count = d3.max(counts),
+        dhs_min = d3.min(dhs_counts),
+        dhs_max = d3.max(dhs_counts);
 
 
     var svg = d3.select("body").append("svg")
@@ -83,19 +90,27 @@
 
     var x = d3.scale.linear()
         .domain([min_year, max_year])
-        // .domain([1980, 2010])
         .range([margin.left, width - margin.right])
 
     var y = d3.scale.linear()
         .domain([min_count, max_count])
         .range([height - margin.bottom, margin.top])
 
+    var dhsY = d3.scale.linear()
+        .domain([dhs_min, dhs_max])
+        .range([height - margin.bottom, margin.top])
+
     var xAxis = d3.svg.axis()
         .scale(x)
-        .orient("bottom");
+        .orient("bottom")
+        .tickFormat(d3.format("g"));
 
     var yAxis = d3.svg.axis()
         .scale(y)
+        .orient("right");
+
+    var dhsYAxis = d3.svg.axis()
+        .scale(dhsY)
         .orient("left");
 
     svg.append("g")
@@ -105,17 +120,27 @@
 
     svg.append("g")
        .attr("class", "axis")
-       .attr("transform", "translate(" + margin.left + ",0)")
+       .attr("transform", "translate(" + width + ",0)")
        .call(yAxis);
+
+    svg.append("g")
+       .attr("class", "axis")
+       .attr("transform", "translate(" + margin.left + ",0")
+       .call(dhsYAxis);
 
     var lineGen = d3.svg.line()
         .x(function(d) { return x(d.year); })
         .y(function(d) { return y(d.count); })
         .interpolate("linear");
 
+    var dhsLineGen = d3.svg.line()
+        .x(function(d) { return x(d.year); })
+        .y(function(d) { return dhsY(d.count); })
+        .interpolate("linear");
+
     svg.append("path")
         .style("opacity", 0)
-        .attr('d', lineGen(data_dhs))
+        .attr('d', dhsLineGen(data_dhs))
         .attr('stroke', 'green')
         .attr('stroke-width', 2)
         .attr('fill', 'none')
@@ -144,7 +169,7 @@
 
     var marker = svg.append('g')
         .attr("class", "marker")
-        .attr("transform", "translate(" + (x(2004) - mark.width/2) + "," + mark.height + ")");
+        .attr("transform", "translate(" + (x(1996) - mark.width/2) + "," + mark.height + ")");
 
 
     marker.append('rect')
@@ -185,6 +210,8 @@
         .style('opacity', 0)
         .transition().delay(1500).duration(1000)
         .style('opacity', 1);
+
+    });
 
     </script>
     </body>
