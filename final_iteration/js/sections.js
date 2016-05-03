@@ -1370,7 +1370,7 @@ var scrollVis = function() {
                        .y(function(d) { return article_y(d["Number_Articles"]); })
                        .interpolate("linear");
 
-                   final_bill.append("path")
+                   final_article.append("path")
                        .style("opacity", 0)
                        .attr('d', bill_line_gen(data_dhs))
                        .attr('stroke', '#4ca54c')
@@ -1380,7 +1380,7 @@ var scrollVis = function() {
                        .transition().delay(0).duration(2000)
                        .style("opacity", 1);
 
-                   final_bill.append("path")
+                   final_article.append("path")
                        .style("opacity", 0)
                        .attr('d', dhs_line_gen(data_dhs))
                        .attr('stroke', 'steelblue')
@@ -1389,7 +1389,7 @@ var scrollVis = function() {
                        .transition().delay(500).duration(2000)
                        .style("opacity", 1);
 
-                   final_bill.append("path")
+                   final_article.append("path")
                        .style("opacity", 0)
                        .attr('d', articles_line_gen(data_dhs))
                        .attr('stroke', '#ff6666')
@@ -1400,11 +1400,11 @@ var scrollVis = function() {
 
                    var mark = {'width': 20, 'height': 40};
 
-                   var marker_bill = final_bill.append('g')
+                   var marker_bill = final_article.append('g')
                        .attr("class", "marker")
                        .attr("transform", "translate(" + (x(1997) - mark.width/2) + "," + mark.height + ")");
               
-                    var marker_article = final_bill.append('g')
+                    var marker_article = final_article.append('g')
                         .attr("class", "marker")
                         .attr("transform", "translate(" + (x(1999) - mark.width/2) + "," + mark.height + ")");
                     
