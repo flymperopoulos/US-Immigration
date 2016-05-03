@@ -27,6 +27,15 @@ body {
   color: #898987;
 }
 
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+
 #sections .title {
   font-family: Arial,Helvetica,"san-serif";
   font-size: 20px;
@@ -93,9 +102,7 @@ body {
 }
 
 path { 
-    stroke: steelblue;
     stroke-width: 2;
-    fill: none;
 }
 
 .axis path,

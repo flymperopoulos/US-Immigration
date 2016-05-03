@@ -84,7 +84,6 @@ var scrollVis = function() {
   // constants to define the size
   // and margins of the vis area.
 
-
   var x = d3.scale.ordinal()
     .rangeRoundBands([width*0.1, width*0.95], 0.1);
 
@@ -149,7 +148,7 @@ var scrollVis = function() {
     yearsList.push(counter);
     counter+=20;
   }
-  console.log(yearsList)
+
   // Sets up the scale for the line graph
   var xLineScale = d3.scale.ordinal()
   	.domain(yearsList)
@@ -252,262 +251,969 @@ var scrollVis = function() {
    *  element for each filler word type.
    */
   setupVis = function(priestData, percentages) {
-    // axis
-    g.append("g")
+
+    /**
+     * VIZ 1 - video
+     * class: home_media
+     */
+    var home_media = g.append("svg")
+      .attr("class", "home_media")
+
+    home_media.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxisBar);
-    g.select(".x.axis").style("opacity", 0);
+    home_media.select(".x.axis").style("opacity", 0);
 
-    g.append("foreignObject")
-      .attr("class", "sub-title openvis-title")
-      .attr("x", 115)
-      .attr("y", 125)
-      .attr("width", 400)
-      .attr("height", 310)
-      .append("xhtml:body")
-      .html('<iframe src="https://www.youtube.com/embed/Ixi9_cciy8w?autoplay=1&controls=0&showinfo=0&modestbranding=1" allowfullscreen="" frameborder="0" height="315" width="420"></iframe>');
-
-    g.selectAll(".openvis-title")
-      .attr("opacity", 0);
-
-    // square grid
-    var squares = g.selectAll(".square").data(priestData);
-    squares.enter()
-      .append("rect")
-      .attr("width", squareSize)
-      .attr("height", squareSize)
-      .attr("fill", "#fff")
-      .classed("square", true)
-      .classed("fill-square", function(d) { return d.incriminated; })
-      .attr("x", function(d) { return d.x;})
-      .attr("y", function(d) { return d.y;})
-      .attr("opacity", 0);
-
-    // barchart
-    var bars = g.selectAll(".bar").data(percentages);
-    bars.enter()
-      .append("rect")
-      .attr("class", "bar")
+    home_media.append("svg:image")
+      .attr("class", "home_media")
+      .attr("xlink:href", "img/no_econ.png")
       .attr("x", 0)
-      .attr("y", function(d,i) { return yBarScale(i);})
-      .attr("fill", function(d,i) { return barColors[i]; })
-      .attr("width", 0)
-      .attr("height", yBarScale.rangeBand());
+      .attr("y", -height*0.1)
+      .attr("height", height)
+      .attr("width", width)
 
-    var barText = g.selectAll(".bar-text").data(percentages);
-    barText.enter()
-      .append("text")
-      .attr("class", "bar-text")
-      .text(function(d) {
-        switch (d.key) {
-          case "N":
-            var retVal = "nun ";
-            break;
-          case "S":
-            var retVal = "seminarian ";
-            break;
-          case "B":
-            var retVal = "bishop ";
-            break;
-          case "P":
-            var retVal = "priest ";
-            break;
-          case "D":
-            var retVal = "deacon ";
+    home_media.selectAll(".home_media")
+      .attr("opacity", 0);
+
+      /**
+       * VIZ 2 - time graph 
+       * class: general_1
+       */
+      var general_1 = g.append("svg")
+        .attr("class", "general_1")
+
+      // Collapsed laoding data DONE
+      d3.csv("data/lprClean.csv", function(error, data) {
+        // Scale the range of the data
+        var x = d3.scale.linear().range([width*0.10, width*0.82]);
+        var y = d3.scale.linear().range([height, height*0.45]);
+        var yTicks = d3.scale.linear().range([height, height*0.08]);
+        yTicks.domain([0,1000])
+        x.domain([1820, 2013]);
+        y.domain([0, 1100000]);
+
+        var xLineAxis = d3.svg.axis()
+          .scale(x)
+          .orient("bottom").ticks(11).tickFormat(d3.format("g"));
+
+        var yLineAxis = d3.svg.axis()
+          .scale(yTicks)
+          .orient("left")
+          .ticks(10);
+
+        // Helper function for the line graph
+        var valueline = d3.svg.line()
+          .x(function(d) { return x(d["Year"]); })
+          .y(function(d) { return y(d["Number"]); });
+
+        // Add the valueline path.
+        general_1.append("path")
+            .attr("class", "general_1")
+            .attr("stroke", "steelblue")
+            .attr("fill", "none")
+            .attr("d", valueline(data));
+
+        // Add the scatterplot
+        general_1.selectAll("dot")
+            .data(data)
+          .enter().append("circle")
+            .attr("fill", "#a1a1a1")
+            .attr("r", 3.5)
+            .attr("cx", function(d) { return x(d["Year"]); })
+            .attr("cy", function(d) { return y(d["Number"]); });
+
+        // Add the X Axis
+        general_1.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(10," + height + ")")
+            .call(xLineAxis)
+            .style("fill", "#D9D9D9")
+          .append("text")
+            .attr("transform", "translate(" + width/2 + ",35)")
+            .attr("text-anchor", "middle")
+            .text("Year");
+
+        // Add the Y Axis
+        general_1.append("g")
+            .attr("class", "y axis")
+            .attr("transform", "translate(50, 0)")
+            .call(yLineAxis)
+            .style("fill", "#D9D9D9")
+            .style("opacity", 1)
+          .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("x", -180)
+            .attr("y", -50)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .text("Number Immigrants (in thousands)");
+
+        general_1.append("text")
+          .attr("x", width/2)
+          .attr("y", 15)
+          .attr("text-anchor", "middle")
+          .attr("font-size", "16px")
+          .style("fill", "#D9D9D9")
+          .text("Immigrants Per Year Since 1820");
+      });
+
+      /**
+       * VIZ 3 - general frequency
+       * class: general_2
+       * CSV Keys: Year, Number_Bills, Number_Articles, Number_DHS
+       */
+      var general_2 = g.append("svg")
+        .attr("class", "general_2")
+
+      d3.csv("data/overall_distribution.csv", function(error, data_dhs) {
+        // Scale the range of the data
+        var years = new Set(),
+            article_counts = new Set(),
+            bill_counts = new Set(),
+            dhs_counts = new Set();
+
+        for (var i=0; i < data_dhs.length; i++) {
+          years.add(data_dhs[i]["Year"]);
+          dhs_counts.add(data_dhs[i]["Number_DHS"]);
+          article_counts.add(data_dhs[i]["Number_Articles"]);
+          bill_counts.add(data_dhs[i]["Number_Bills"]);
         }
-       return retVal + d.values.toFixed(2); })
-      .attr("x", 0)
-      .attr("dx", 15)
-      .attr("y", function(d,i) { return yBarScale(i);})
-      .attr("dy", yBarScale.rangeBand() / 1.2)
-      .style("font-size", "60px")
-      .style("text-shadow", "2px 2px 2px")
-      .attr("fill", "white")
-      .attr("opacity", 0);
 
-    // histogram
-    var svg_hist = g.append("svg")
-   	  .attr("class", "hist");
+          years = Array.from(years);
+          article_counts = Array.from(article_counts);
+          bill_counts = Array.from(bill_counts);
+          dhs_counts = Array.from(dhs_counts);
 
-      // draw legend
-      var legend = svg.selectAll(".legend")
-          .data(color.domain())
-        .enter().append("g")
-          .attr("class", "legend")
-          .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+          bill_counts_int = [];
+          article_counts_int = [];
+          dhs_counts_int = [];
 
-      // draw legend colored rectangles
-      legend.append("rect")
-          .attr("x", width - 18)
-          .attr("width", 18)
-          .attr("height", 18)
-          .style("fill", color);
+          bill_counts.forEach(function(value){bill_counts_int.push(parseInt(value))})
+          dhs_counts.forEach(function(value){dhs_counts_int.push(parseInt(value))})
+          article_counts.forEach(function(value){article_counts_int.push(parseInt(value))})
 
-      // draw legend text
-      legend.append("text")
-          .attr("x", width - 24)
-          .attr("y", 9)
-          .attr("dy", ".35em")
-          .style("text-anchor", "end")
-          .text(function(d) { return d;})
+          var min_year = d3.min(years),
+              max_year = d3.max(years),
+              bill_min = d3.min(bill_counts_int),
+              bill_max = d3.max(bill_counts_int),
+              dhs_min = d3.min(dhs_counts_int),
+              dhs_max = d3.max(dhs_counts_int),
+              article_min = d3.min(article_counts_int),
+              article_max = d3.max(article_counts_int);
+
+          var x = d3.scale.linear()
+              .domain([min_year, max_year])
+              .range([margin.left*4, width - 4*margin.right]);
+
+          var bill_y = d3.scale.linear()
+              .domain([bill_min, bill_max])
+              .range([height - margin.bottom, margin.top]);
+
+          var dhs_y = d3.scale.linear()
+              .domain([dhs_min, dhs_max])
+              .range([height - margin.bottom, margin.top]);
+
+          var article_y = d3.scale.linear()
+              .domain([article_min, article_max])
+              .range([height - margin.bottom, margin.top]);
+          
+          var xAxis = d3.svg.axis()
+              .scale(x)
+              .orient("bottom")
+              .tickFormat(d3.format("g"));
+
+          var bill_yAxis = d3.svg.axis()
+              .scale(bill_y)
+              .orient("left");
+
+          var dhs_yAxis = d3.svg.axis()
+              .scale(dhs_y)
+              .orient("right");
+
+          var article_yAxis = d3.svg.axis()
+              .scale(article_y)
+              .orient("right");
+
+          general_2.append("g")
+             .attr("class", "axis")
+             .attr("transform", "translate(0," + height + ")")
+             .call(xAxis)
+             .append("text")
+               .attr("transform", "translate(" + width/2 + ",38)")
+               .attr("text-anchor", "middle")
+               .text("Year");
+
+          general_2.append("g")
+             .attr("class", "axis")
+             .attr("transform", "translate(" + width + ",0)")
+             .call(bill_yAxis)
+             .attr("stroke", "green");
+
+          general_2.append("g")
+             .attr("class", "axis")
+             .attr("transform", "translate(" + margin.left + ",0)")
+             .call(dhs_yAxis)
+             .attr("stroke", "steelblue");
+
+          general_2.append("g")
+             .attr("class", "axis")
+             .attr("transform", "translate(" + margin.left*3 + ",0)")
+             .call(article_yAxis)
+             .attr("stroke", "#ff6666");
+
+
+          var bill_line_gen = d3.svg.line()
+              .x(function(d) { return x(d["Year"]); })
+              .y(function(d) { return bill_y(d["Number_Bills"]);})
+              .interpolate("linear");
+
+          var dhs_line_gen = d3.svg.line()
+              .x(function(d) { return x(d["Year"]); })
+              .y(function(d) { return dhs_y(d["Number_DHS"]); })
+              .interpolate("linear");
+
+          var articles_line_gen = d3.svg.line()
+              .x(function(d) { return x(d["Year"]); })
+              .y(function(d) { return article_y(d["Number_Articles"]); })
+              .interpolate("linear");
+
+          general_2.append("path")
+              .style("opacity", 0)
+              .attr('d', bill_line_gen(data_dhs))
+              .attr('stroke', '#4ca54c')
+              .attr('stroke-width', 2)
+              .attr('fill', 'none')
+              .attr('style', "color:green")
+              .transition().delay(0).duration(2000)
+              .style("opacity", 1);
+
+          general_2.append("path")
+              .style("opacity", 0)
+              .attr('d', dhs_line_gen(data_dhs))
+              .attr('stroke', 'steelblue')
+              .attr('stroke-width', 2)
+              .attr('fill', 'none')
+              .transition().delay(500).duration(2000)
+              .style("opacity", 1);
+
+          general_2.append("path")
+              .style("opacity", 0)
+              .attr('d', articles_line_gen(data_dhs))
+              .attr('stroke', '#ff6666')
+              .attr('stroke-width', 2)
+              .attr('fill', 'none')
+              .transition().delay(1000).duration(2000)
+              .style("opacity", 1);
+
+          var mark = {'width': 20, 'height': 40};
+
+          var marker_bill = general_2.append('g')
+              .attr("class", "marker")
+              .attr("transform", "translate(" + (x(1997) - mark.width/2) + "," + mark.height + ")");
+          
+          var marker_dhs = general_2.append('g')
+              .attr("class", "marker")
+              .attr("transform", "translate(" + (x(1996) - mark.width/2) + "," + mark.height + ")");
+
+          var marker_article = general_2.append('g')
+              .attr("class", "marker")
+              .attr("transform", "translate(" + (x(1999) - mark.width/2) + "," + mark.height + ")");
+
+          marker_bill.append('rect')
+              .attr('width', mark.width)
+              .attr('height', mark.height)
+              .attr('fill', 'grey')
+              .style('opacity', 0)
+              .transition().delay(1500).duration(1000)
+              .style('opacity', 1);
+
+          marker_dhs.append('rect')
+              .attr('width', mark.width)
+              .attr('height', mark.height)
+              .attr('fill', 'grey')
+              .style('opacity', 0)
+              .transition().delay(1500).duration(1000)
+              .style('opacity', 1);
+
+          marker_article.append('rect')
+              .attr('width', mark.width)
+              .attr('height', mark.height)
+              .attr('fill', 'grey')
+              .style('opacity', 0)
+              .transition().delay(1500).duration(1000)
+              .style('opacity', 1);
+
+
+          marker_bill.append("text")
+              .attr("x", mark.width/2)
+              .attr("y", mark.height/2)
+              .text("1997")
+              .attr("transform", "rotate(-90, " + mark.width/2 + "," + mark.height/2 + ")")
+              .attr("dy", mark.width/4)
+              .style('opacity', 0)
+              .style("text-anchor", "middle")
+              .transition().delay(1500).duration(1000)
+              .style('opacity', 1);
+
+          marker_dhs.append("text")
+              .attr("x", mark.width/2)
+              .attr("y", mark.height/2)
+              .text("1996")
+              .attr("transform", "rotate(-90, " + mark.width/2 + "," + mark.height/2 + ")")
+              .attr("dy", mark.width/4)
+              .style('opacity', 0)
+              .style("text-anchor", "middle")
+              .transition().delay(1500).duration(1000)
+              .style('opacity', 1);
+
+          marker_article.append("text")
+              .attr("x", mark.width/2)
+              .attr("y", mark.height/2)
+              .text("1999")
+              .attr("transform", "rotate(-90, " + mark.width/2 + "," + mark.height/2 + ")")
+              .attr("dy", mark.width/4)
+              .style('opacity', 0)
+              .style("text-anchor", "middle")
+              .transition().delay(1500).duration(1000)
+              .style('opacity', 1);
+
+          marker_bill.append("polygon")
+              .attr("points", "" + 0 + "," + mark.height + " " + mark.width + "," + mark.height + " " + mark.width/2 + "," + (mark.width + mark.height) + "")
+              .attr("fill", "gray")
+              .style('opacity', 0)
+              .transition().delay(1500).duration(1000)
+              .style('opacity', 1);
+
+          marker_dhs.append("polygon")
+              .attr("points", "" + 0 + "," + mark.height + " " + mark.width + "," + mark.height + " " + mark.width/2 + "," + (mark.width + mark.height) + "")
+              .attr("fill", "gray")
+              .style('opacity', 0)
+              .transition().delay(1500).duration(1000)
+              .style('opacity', 1);
+
+          marker_article.append("polygon")
+              .attr("points", "" + 0 + "," + mark.height + " " + mark.width + "," + mark.height + " " + mark.width/2 + "," + (mark.width + mark.height) + "")
+              .attr("fill", "gray")
+              .style('opacity', 0)
+              .transition().delay(1500).duration(1000)
+              .style('opacity', 1);
+
+          marker_bill.append("line")
+              .attr("x1", mark.width/2)
+              .attr("x2", mark.width/2)
+              .attr("y1", mark.height + mark.width)
+              .attr("y2", height - mark.height)
+              .style("stroke", "grey")
+              .style('opacity', 0)
+              .transition().delay(1500).duration(1000)
+              .style('opacity', 1);
+
+          marker_dhs.append("line")
+              .attr("x1", mark.width/2)
+              .attr("x2", mark.width/2)
+              .attr("y1", mark.height + mark.width)
+              .attr("y2", height - mark.height)
+              .style("stroke", "grey")
+              .style('opacity', 0)
+              .transition().delay(1500).duration(1000)
+              .style('opacity', 1);
+
+          marker_article.append("line")
+              .attr("x1", mark.width/2)
+              .attr("x2", mark.width/2)
+              .attr("y1", mark.height + mark.width)
+              .attr("y2", height - mark.height)
+              .style("stroke", "grey")
+              .style('opacity', 0)
+              .transition().delay(1500).duration(1000)
+              .style('opacity', 1);
+
+      });
+
+      /**
+       * VIZ 4 - time graph zoomed
+       * class: general_1_zoomed
+       */
+
+       var general_1_zoomed = g.append("svg")
+         .attr("class", "general_1_zoomed")
+
+       d3.csv("data/lprClean_zoom.csv", function(error, data) {
+         // Scale the range of the data
+         var x = d3.scale.linear().range([width*0.10, width*0.82]);
+         var y = d3.scale.linear().range([height, height*0.45]);
+         var yTicks = d3.scale.linear().range([height, height*0.08]);
+         yTicks.domain([0,1000])
+         x.domain([1990, 2014]);
+         y.domain([0, 1100000]);
+
+         var xLineAxis = d3.svg.axis()
+           .scale(x)
+           .orient("bottom").ticks(11).tickFormat(d3.format("g"));
+
+         var yLineAxis = d3.svg.axis()
+           .scale(yTicks)
+           .orient("left")
+           .ticks(10);
+
+         // Helper function for the line graph
+         var valueline = d3.svg.line()
+           .x(function(d) { return x(d["Year"]); })
+           .y(function(d) { return y(d["Number"]); });
+
+         // Add the valueline path.
+         general_1_zoomed.append("path")
+             .attr("class", "general_1_zoomed")
+             .attr("stroke", "steelblue")
+             .attr("fill", "none")
+             .attr("d", valueline(data));
+
+         // Add the scatterplot
+         general_1_zoomed.selectAll("dot")
+             .data(data)
+           .enter().append("circle")
+             .attr("fill", "#a1a1a1")
+             .attr("r", 3.5)
+             .attr("cx", function(d) { return x(d["Year"]); })
+             .attr("cy", function(d) { return y(d["Number"]); });
+
+         // Add the X Axis
+         general_1_zoomed.append("g")
+             .attr("class", "x axis")
+             .attr("transform", "translate(10," + height + ")")
+             .call(xLineAxis)
+             .style("fill", "#D9D9D9")
+           .append("text")
+             .attr("transform", "translate(" + width/2 + ",35)")
+             .attr("text-anchor", "middle")
+             .text("Year");
+
+         // Add the Y Axis
+         general_1_zoomed.append("g")
+             .attr("class", "y axis")
+             .attr("transform", "translate(50, 0)")
+             .call(yLineAxis)
+             .style("fill", "#D9D9D9")
+             .style("opacity", 1)
+           .append("text")
+             .attr("transform", "rotate(-90)")
+             .attr("x", -180)
+             .attr("y", -50)
+             .attr("dy", ".71em")
+             .style("text-anchor", "end")
+             .text("Number Immigrants (in thousands)");
+
+         general_1_zoomed.append("text")
+           .attr("x", width/2)
+           .attr("y", 15)
+           .attr("text-anchor", "middle")
+           .attr("font-size", "16px")
+           .style("fill", "#D9D9D9")
+           .text("Immigrants Per Year Since 1820");
+       });
+
+      /**
+       * VIZ 5 - bills bubble graph
+       * class: bills_bubbles
+       */
+
+      var bills_bubbles = g.append("svg")
+        .attr("class", "bills_bubbles")
+
+       bills_bubbles.append("circle")
+         .attr("class", "bills_bubbles")
+         .attr("cx", width/4)
+         .attr("cy", height/2)
+         .attr("r", Math.sqrt(6427))
+         .attr("fill", "#B6212D");
+
+       bills_bubbles.append("text")
+         .attr("class", "bills_bubbles")
+         .attr("x", width/8)
+         .attr("y", height*0.7)
+         .attr("fill", "#0000000")
+         .text("114 Bills on Immigration");
+
+       bills_bubbles.append("circle")
+         .attr("class", "bills_bubbles")
+         .attr("cx", 3*width/4)
+         .attr("cy", height/2)
+         .attr("r", Math.sqrt(17259))
+         .attr("fill", "#6D929B");
+
+       bills_bubbles.append("circle")
+         .attr("class", "bills_bubbles")
+         .attr("cx", 3*width/4)
+         .attr("cy", height/2)
+         .attr("r", Math.sqrt(12259))
+         .attr("fill", "#C1DAD6");
+
+       bills_bubbles.append("text")
+         .attr("class", "bills_bubbles")
+         .attr("x", 2.6*width/4)
+         .attr("y", height*0.8)
+         .attr("fill", "#0000000")
+         .text("71% of Bills Passed");
+
+
+        /**
+         * VIZ 6 - top subjects graph
+         * class: top_subjects
+         */
+
+        var top_subjects = g.append("svg")
+          .attr("class", "top_subjects")
+
+        d3.csv("data/subject_bill_distribution.csv", function(error, data) {
+           // Scale the range of the data
+           var x = d3.scale.ordinal()
+               .rangeRoundBands([0, width], .1);
+
+           var y = d3.scale.linear()
+               .range([height, 0]);
+
+           var xAxis = d3.svg.axis()
+               .scale(x)
+               .orient("bottom");
+
+           var yAxis = d3.svg.axis()
+               .scale(y)
+               .orient("left")
+               .ticks(18, "%");
+
+           x.domain(data.map(function(d) { return d["Top-Subject"]; }));
+           y.domain([0, d3.max(data, function(d) {return parseInt(d["Number"]); })]);
+
+           top_subjects.append("g")
+               .attr("class", "x axis")
+               .attr("transform", "translate(0," + height/1.15 + ")")
+               .call(xAxis)
+               .selectAll("text")  
+                   .style("text-anchor", "end")
+                   .attr("dx", "-.8em")
+                   .attr("dy", ".15em")
+                   .attr("transform", function(d) {
+                       return "rotate(-65)" 
+                   });
+
+           top_subjects.append("g")
+               .attr("class", "y axis")
+               .call(yAxis)
+             .append("text")
+               .attr("transform", "rotate(-90)")
+               .attr("y", 6)
+               .attr("dy", ".71em")
+               .style("text-anchor", "end")
+
+           top_subjects.selectAll(".bar")
+             .data(data)
+             .enter().append("rect")
+             .attr("class", "bar")
+             .attr("x", function(d) { return x(d["Top-Subject"]); })
+             .attr("width", x.rangeBand())
+             .attr("y", function(d) { return y(d["Number"])-70; })
+             .attr("height", function(d) { return height - y(d["Number"]); });
+         });
+
+        /**
+         * VIZ 7 - voting graph
+         * class: voting
+         */
+
+        var voting = g.append("svg")
+          .attr("class", "voting")
+
+        d3.csv("data/vote_econ_topic_distribution.csv", function(error, data) {
+          // Scale the range of the data
+          var x = d3.scale.ordinal()
+              .rangeRoundBands([0, width], .1);
+
+          var y = d3.scale.linear()
+              .range([height, 0]);
+
+          var xAxis = d3.svg.axis()
+              .scale(x)
+              .orient("bottom");
+
+          var yAxis = d3.svg.axis()
+              .scale(y)
+              .orient("left")
+              .ticks(18, "%");
+
+          x.domain(data.map(function(d) { return d["bills"]; }));
+          y.domain([0, d3.max(data, function(d) {return parseFloat(d["yes_dem"]); })]);
+
+          voting.append("g")
+              .attr("class", "x axis")
+              .attr("transform", "translate(0," + height/1.15 + ")")
+              .call(xAxis)
+              .selectAll("text")  
+                  .style("text-anchor", "end")
+                  .attr("dx", "-.8em")
+                  .attr("dy", ".15em")
+                  .attr("transform", function(d) {
+                      return "rotate(-65)" 
+                  });
+
+          voting.append("g")
+              .attr("class", "y axis")
+              .call(yAxis)
+            .append("text")
+              .attr("transform", "rotate(-90)")
+              .attr("y", 6)
+              .attr("dy", ".71em")
+              .style("text-anchor", "end")
+
+          voting.selectAll(".bar")
+            .data(data)
+            .enter().append("rect")
+            .attr("class", "bar")
+            .attr("x", function(d) { return x(d["bills"]); })
+            .attr("width", x.rangeBand())
+            .attr("y", function(d) { return y(d["yes_dem"])-70; })
+            .attr("height", function(d) { return height - y(d["yes_dem"]); });  
+        });
+
+        /**
+         * VIZ 8 - final bill graph
+         * class: final_bill
+         */
+
+         var final_bill = g.append("svg")
+           .attr("class", "final_bill")
+
+         d3.csv("data/overall_distribution.csv", function(error, data_dhs) {
+           // Scale the range of the data
+           var years = new Set(),
+               article_counts = new Set(),
+               bill_counts = new Set(),
+               dhs_counts = new Set();
+
+           for (var i=0; i < data_dhs.length; i++) {
+             years.add(data_dhs[i]["Year"]);
+             dhs_counts.add(data_dhs[i]["Number_DHS"]);
+             article_counts.add(data_dhs[i]["Number_Articles"]);
+             bill_counts.add(data_dhs[i]["Number_Bills"]);
+           }
+
+             years = Array.from(years);
+             article_counts = Array.from(article_counts);
+             bill_counts = Array.from(bill_counts);
+             dhs_counts = Array.from(dhs_counts);
+
+             bill_counts_int = [];
+             article_counts_int = [];
+             dhs_counts_int = [];
+
+             bill_counts.forEach(function(value){bill_counts_int.push(parseInt(value))})
+             dhs_counts.forEach(function(value){dhs_counts_int.push(parseInt(value))})
+             article_counts.forEach(function(value){article_counts_int.push(parseInt(value))})
+
+             var min_year = d3.min(years),
+                 max_year = d3.max(years),
+                 bill_min = d3.min(bill_counts_int),
+                 bill_max = d3.max(bill_counts_int),
+                 dhs_min = d3.min(dhs_counts_int),
+                 dhs_max = d3.max(dhs_counts_int),
+                 article_min = d3.min(article_counts_int),
+                 article_max = d3.max(article_counts_int);
+
+             var x = d3.scale.linear()
+                 .domain([min_year, max_year])
+                 .range([margin.left*4, width - 4*margin.right]);
+
+             var bill_y = d3.scale.linear()
+                 .domain([bill_min, bill_max])
+                 .range([height - margin.bottom, margin.top]);
+
+             var dhs_y = d3.scale.linear()
+                 .domain([dhs_min, dhs_max])
+                 .range([height - margin.bottom, margin.top]);
+
+             var article_y = d3.scale.linear()
+                 .domain([article_min, article_max])
+                 .range([height - margin.bottom, margin.top]);
+             
+             var xAxis = d3.svg.axis()
+                 .scale(x)
+                 .orient("bottom")
+                 .tickFormat(d3.format("g"));
+
+             var bill_yAxis = d3.svg.axis()
+                 .scale(bill_y)
+                 .orient("left");
+
+             var dhs_yAxis = d3.svg.axis()
+                 .scale(dhs_y)
+                 .orient("right");
+
+             var article_yAxis = d3.svg.axis()
+                 .scale(article_y)
+                 .orient("right");
+
+             final_bill.append("g")
+                .attr("class", "axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis)
+                .append("text")
+                  .attr("transform", "translate(" + width/2 + ",38)")
+                  .attr("text-anchor", "middle")
+                  .text("Year");
+
+             final_bill.append("g")
+                .attr("class", "axis")
+                .attr("transform", "translate(" + width + ",0)")
+                .call(bill_yAxis)
+                .attr("stroke", "green");
+
+             final_bill.append("g")
+                .attr("class", "axis")
+                .attr("transform", "translate(" + margin.left + ",0)")
+                .call(dhs_yAxis)
+                .attr("stroke", "steelblue");
+
+             final_bill.append("g")
+                .attr("class", "axis")
+                .attr("transform", "translate(" + margin.left*3 + ",0)")
+                .call(article_yAxis)
+                .attr("stroke", "#ff6666");
+
+
+             var bill_line_gen = d3.svg.line()
+                 .x(function(d) { return x(d["Year"]); })
+                 .y(function(d) { return bill_y(d["Number_Bills"]);})
+                 .interpolate("linear");
+
+             var dhs_line_gen = d3.svg.line()
+                 .x(function(d) { return x(d["Year"]); })
+                 .y(function(d) { return dhs_y(d["Number_DHS"]); })
+                 .interpolate("linear");
+
+             var articles_line_gen = d3.svg.line()
+                 .x(function(d) { return x(d["Year"]); })
+                 .y(function(d) { return article_y(d["Number_Articles"]); })
+                 .interpolate("linear");
+
+             final_bill.append("path")
+                 .style("opacity", 0)
+                 .attr('d', bill_line_gen(data_dhs))
+                 .attr('stroke', '#4ca54c')
+                 .attr('stroke-width', 2)
+                 .attr('fill', 'none')
+                 .attr('style', "color:green")
+                 .transition().delay(0).duration(2000)
+                 .style("opacity", 1);
+
+             final_bill.append("path")
+                 .style("opacity", 0)
+                 .attr('d', dhs_line_gen(data_dhs))
+                 .attr('stroke', 'steelblue')
+                 .attr('stroke-width', 2)
+                 .attr('fill', 'none')
+                 .transition().delay(500).duration(2000)
+                 .style("opacity", 1);
+
+             final_bill.append("path")
+                 .style("opacity", 0)
+                 .attr('d', articles_line_gen(data_dhs))
+                 .attr('stroke', '#ff6666')
+                 .attr('stroke-width', 2)
+                 .attr('fill', 'none')
+                 .transition().delay(1000).duration(2000)
+                 .style("opacity", 1);
+
+             var mark = {'width': 20, 'height': 40};
+
+             var marker_bill = final_bill.append('g')
+                 .attr("class", "marker")
+                 .attr("transform", "translate(" + (x(1997) - mark.width/2) + "," + mark.height + ")");
+  
+             marker_bill.append('rect')
+                 .attr('width', mark.width)
+                 .attr('height', mark.height)
+                 .attr('fill', 'grey')
+                 .style('opacity', 0)
+                 .transition().delay(1500).duration(1000)
+                 .style('opacity', 1);
+
+
+             marker_bill.append("text")
+                 .attr("x", mark.width/2)
+                 .attr("y", mark.height/2)
+                 .text("1997")
+                 .attr("transform", "rotate(-90, " + mark.width/2 + "," + mark.height/2 + ")")
+                 .attr("dy", mark.width/4)
+                 .style('opacity', 0)
+                 .style("text-anchor", "middle")
+                 .transition().delay(1500).duration(1000)
+                 .style('opacity', 1);
+
+             marker_bill.append("polygon")
+                 .attr("points", "" + 0 + "," + mark.height + " " + mark.width + "," + mark.height + " " + mark.width/2 + "," + (mark.width + mark.height) + "")
+                 .attr("fill", "gray")
+                 .style('opacity', 0)
+                 .transition().delay(1500).duration(1000)
+                 .style('opacity', 1);
+
+             marker_bill.append("line")
+                 .attr("x1", mark.width/2)
+                 .attr("x2", mark.width/2)
+                 .attr("y1", mark.height + mark.width)
+                 .attr("y2", height - mark.height)
+                 .style("stroke", "grey")
+                 .style('opacity', 0)
+                 .transition().delay(1500).duration(1000)
+                 .style('opacity', 1);
+
+         });
+
+
+/** ------- DONE WITH BILLS ------- **/
+        /**
+         * VIZ 9 - cluster_bubbles
+         * class: cluster_bubbles
+         */
+        var cluster_bubbles_articles = g.append("svg")
+          .attr("class", "cluster_bubbles_articles")
+
+        cluster_bubbles_articles.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + height + ")")
+          .call(xAxisBar);
+        cluster_bubbles_articles.select(".x.axis").style("opacity", 0);
+
+        cluster_bubbles_articles.append("svg:image")
+          .attr("class", "cluster_bubbles_articles")
+          .attr("xlink:href", "img/articles_1_bubbles.png")
+          .attr("x", 0)
+          .attr("y", -height*0.001)
+          .attr("height", height)
+          .attr("width", width)
+
+        cluster_bubbles_articles.append("svg:image")
+          .attr("class", "cluster_bubbles_articles")
+          .attr("xlink:href", "img/articles_2_bubbles.png")
+          .attr("x", 0)
+          .attr("y", -height*0.43)
+          .attr("height", height)
+          .attr("width", width)
+
+        cluster_bubbles_articles.selectAll(".cluster_bubbles_articles")
+          .attr("opacity", 0);
+
+
+          /**
+          VIZ 10 - multi graph articles
+          class: multi_grap_articles
+          */
+
+          var multi_grap_articles = g.append("svg")
+            .attr("class", "multi_grap_articles")
+
+
+          d3.csv("data/multi_graph.csv", function(error, data) {
+            var x0 = d3.scale.ordinal()
+                .rangeRoundBands([0, width], .1);
+            var x1 = d3.scale.ordinal();
+            var y = d3.scale.linear()
+                .range([height, 0]);
+            var color = d3.scale.category10();
+
+            if (error) throw error;
+            var ageNames = d3.keys(data[0]).filter(function(key) { return key !== "State"; });
+            data.forEach(function(d) {
+              d.ages = ageNames.map(function(name) { return {name: name, value: +d[name]}; });
+            });
+            x0.domain(data.map(function(d) { return d.State; }));
+            x1.domain(ageNames).rangeRoundBands([0, x0.rangeBand()]);
+            y.domain([0, d3.max(data, function(d) { return d3.max(d.ages, function(d) { return d.value; }); })]);
+            
+            multi_grap_articles.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis);
+            multi_grap_articles.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+              .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("Number of Articles");
+            var state = multi_grap_articles.selectAll(".state")
+                .data(data)
+              .enter().append("g")
+                .attr("class", "state")
+                .attr("transform", function(d) { return "translate(" + x0(d.State) + ",0)"; });
+            state.selectAll("rect")
+                .data(function(d) { return d.ages; })
+              .enter().append("rect")
+                .attr("width", x1.rangeBand())
+                .attr("x", function(d) { return x1(d.name); })
+                .attr("y", function(d) { return y(d.value); })
+                .attr("height", function(d) { return height - y(d.value); })
+                .style("fill", function(d) { return color(d.name); });
+            
+            var legend = multi_grap_articles.selectAll(".legend")
+                .data(ageNames.slice().reverse())
+              .enter().append("g")
+                .attr("class", "legend")
+                .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+            legend.append("rect")
+                .attr("x", width)
+                .attr("width", 18)
+                .attr("height", 18)
+                .style("fill", color);
+            legend.append("text")
+                .attr("x", width - 1)
+                .attr("y", 9)
+                .attr("dy", ".35em")
+                .style("text-anchor", "end")
+                .style("font-size","15px")
+                .text(function(d) { return d; });
+          });
+
 
     // DOTS ON YEARS
+    // var svg_dots = g.append("svg")
+    //   .attr("class", "dots")
 
-    var svg_dots = g.append("svg")
-      .attr("class", "dots")
+    // svg.call(tip);
 
-    svg.call(tip);
+    // svg_dots.append("g")
+    //   .attr("class", "axis")
+    //   .attr("transform", "translate(0," + height + ")")
+    //   .call(xAxis);
 
-    svg_dots.append("g")
-      .attr("class", "axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
+    // svg_dots.append("g")
+    //   .attr("class", "axis")
+    //   .call(yAxis);
 
-    svg_dots.append("g")
-      .attr("class", "axis")
-      .call(yAxis);
+    // svg_dots.selectAll("circle")
+    //   .data(data)
+    //   .enter().append("circle")
+    //   .attr("cx", function(d) {return x_nur(d.year);})
+    //   .attr("cy", height/2)
+    //   .attr("r", function(d) {return radScale(d.count);})
+    //   .on("mouseover", tip.show)
+    //   .on("mouseout", tip.hide)
+    //   .attr("class", function(d) {
+    //     var returnClass;
+    //     if (d.type==="bill") {returnClass="b circle";}
+    //     else if (d.type==="article") {returnClass="a circle";}
+    //     return returnClass;
+    //   })
+    //   .transition()
+    //   .delay(250)
+    //   .duration(2000)
+    //   .attr("cy", function(d) {return y_nur(d.word);});
 
-    svg_dots.selectAll("circle")
-      .data(data)
-      .enter().append("circle")
-      .attr("cx", function(d) {return x_nur(d.year);})
-      .attr("cy", height/2)
-      .attr("r", function(d) {return radScale(d.count);})
-      .on("mouseover", tip.show)
-      .on("mouseout", tip.hide)
-      .attr("class", function(d) {
-        var returnClass;
-        if (d.type==="bill") {returnClass="b circle";}
-        else if (d.type==="article") {returnClass="a circle";}
-        return returnClass;
-      })
-      .transition()
-      .delay(250)
-      .duration(2000)
-      .attr("cy", function(d) {return y_nur(d.word);});
 
-      // creates circles to show growth
-      g.append("circle")
-        .attr("class", "growth")
-        .attr("cx", width/4)
-        .attr("cy", height/2)
-        .attr("r", Math.sqrt(6427))
-        .attr("fill", "#B6212D");
 
-      // g.append("circle")
-      //   .attr("class", "growth")
-      //   .attr("cx", width/4)
-      //   .attr("cy", height/2)
-      //   .attr("r", Math.sqrt(4392))
-      //   .attr("fill", "#DF9496");
 
-      g.append("text")
-        .attr("class", "growth")
-        .attr("x", width/4)
-        .attr("y", height*0.7)
-        .attr("fill", "#fff")
-        .text("114 Bills on Immigration");
-
-      g.append("circle")
-        .attr("class", "growth")
-        .attr("cx", 3*width/4)
-        .attr("cy", height/2)
-        .attr("r", Math.sqrt(17259))
-        .attr("fill", "#6D929B");
-
-      g.append("circle")
-        .attr("class", "growth")
-        .attr("cx", 3*width/4)
-        .attr("cy", height/2)
-        .attr("r", Math.sqrt(12259))
-        .attr("fill", "#C1DAD6");
-
-      g.append("text")
-        .attr("class", "growth")
-        .attr("x", 3*width/4)
-        .attr("y", height*0.8)
-        .attr("fill", "#fff")
-        .text("71% of Bills Passed");
-
-    // visualizes the number of survivors per year
-    var svg_line = g.append("svg")
-      .attr("class", "line")
-
-    // Get the data
-    d3.csv("data/lprClean.csv", function(error, data) {
-      // Scale the range of the data
-      var x = d3.scale.linear().range([width*0.10, width*0.82]);
-      var y = d3.scale.linear().range([height, height*0.45]);
-      var yTicks = d3.scale.linear().range([height, height*0.08]);
-      yTicks.domain([0,1000])
-      x.domain([1820, 2013]);
-      y.domain([0, 1100000]);
-
-      var xLineAxis = d3.svg.axis()
-        .scale(x)
-        .orient("bottom").ticks(11).tickFormat(d3.format("g"));
-
-      var yLineAxis = d3.svg.axis()
-        .scale(yTicks)
-        .orient("left")
-        .ticks(10);
-
-      // Helper function for the line graph
-      var valueline = d3.svg.line()
-        .x(function(d) { return x(d["Year"]); })
-        .y(function(d) { return y(d["Number"]); });
-
-      // Add the valueline path.
-      svg_line.append("path")
-          .attr("class", "line")
-          .attr("d", valueline(data));
-
-      // Add the scatterplot
-      svg_line.selectAll("dot")
-          .data(data)
-        .enter().append("circle")
-          .attr("fill", "#a1a1a1")
-          .attr("r", 3.5)
-          .attr("cx", function(d) { return x(d["Year"]); })
-          .attr("cy", function(d) { return y(d["Number"]); });
-
-      // Add the X Axis
-      svg_line.append("g")
-          .attr("class", "x axis")
-          .attr("transform", "translate(10," + height + ")")
-          .call(xLineAxis)
-          .style("fill", "#D9D9D9")
-        .append("text")
-          .attr("transform", "translate(" + width/2 + ",35)")
-          .attr("text-anchor", "middle")
-          .text("Year");
-
-      // Add the Y Axis
-      svg_line.append("g")
-          .attr("class", "y axis")
-          .attr("transform", "translate(50, 0)")
-          .call(yLineAxis)
-          .style("fill", "#D9D9D9")
-          .style("opacity", 1)
-        .append("text")
-          .attr("transform", "rotate(-90)")
-          .attr("x", -180)
-          .attr("y", -50)
-          .attr("dy", ".71em")
-          .style("text-anchor", "end")
-          .text("Number Immigrants (in thousands)");
-
-      svg_line.append("text")
-        .attr("x", width/2)
-        .attr("y", 15)
-        .attr("text-anchor", "middle")
-        .attr("font-size", "16px")
-        .style("fill", "#D9D9D9")
-        .text("Immigrants Per Year Since 1820");
-    });
-
-    g.selectAll(".growth")
+    g.selectAll(".bills_bubbles")
       .style("opacity", 0);
 
     g.selectAll(".hist")
@@ -516,7 +1222,16 @@ var scrollVis = function() {
     g.selectAll(".dots")
       .style("opacity", 0);
 
-    g.selectAll(".line")
+    g.selectAll(".general_1")
+      .style("opacity", 0);
+
+    g.selectAll(".voting")
+      .style("opacity", 0);
+
+    g.selectAll(".cluster_bubbles_articles")
+      .style("opacity", 0);
+
+    g.selectAll(".multi_grap_articles")
       .style("opacity", 0);
   };
 
@@ -530,14 +1245,16 @@ var scrollVis = function() {
   setupSections = function() {
     // activateFunctions are called each
     // time the active section changes
-    activateFunctions[0] = showTitle;
-    activateFunctions[1] = showGrid;
-    activateFunctions[2] = highlightGrid;
-    activateFunctions[3] = showBar;
-    activateFunctions[4] = showHist;
-    activateFunctions[5] = showScatter;
-    activateFunctions[6] = showGrowth;
-    activateFunctions[7] = callToAction;
+    activateFunctions[0] = showMain;
+    activateFunctions[1] = showGeneral;
+    activateFunctions[2] = showGeneral_2;
+    activateFunctions[3] = startBills;
+    activateFunctions[4] = generalBills;
+    activateFunctions[5] = showTopSubjects;
+    activateFunctions[6] = showVoting;
+    activateFunctions[7] = finalVoting;
+    activateFunctions[8] = articlesCluster;
+    activateFunctions[9] = articlesClusterBar;
 
     // updateFunctions are called while
     // in a particular section to update
@@ -545,26 +1262,11 @@ var scrollVis = function() {
     // Most sections do not need to be updated
     // for all scrolling and so are set to
     // no-op functions.
-    for(var i = 0; i < 9; i++) {
+    for(var i = 0; i < 11; i++) {
       updateFunctions[i] = function() {};
     }
     // updateFunctions[7] = callToAction;
   };
-
-  /**
-   * ACTIVATE FUNCTIONS
-   *
-   * These will be called their
-   * section is scrolled to.
-   *
-   * General pattern is to ensure
-   * all content for the current section
-   * is transitioned in, while hiding
-   * the content for the previous section
-   * as well as the next section (as the
-   * user may be scrolling up or down).
-   *
-   */
 
   /**
    * showTitle - initial title
@@ -574,148 +1276,143 @@ var scrollVis = function() {
    * shows: intro title
    *
    */
-  function showTitle() {
-    g.selectAll(".square")
+  function showMain() {
+    g.selectAll(".general_1")
       .transition()
       .duration(0)
-      .attr("opacity", 0);
+      .style("opacity", 0);
 
-    g.selectAll(".openvis-title")
+    g.selectAll(".general_2")
+      .transition()
+      .duration(0)
+      .style("opacity", 0);
+
+    g.selectAll(".general_1_zoomed")
+      .transition()
+      .duration(0)
+      .style("opacity", 0);
+
+    g.selectAll(".home_media")
       .transition()
       .duration(600)
       .attr("opacity", 1.0);
+
+    g.selectAll(".bills_bubbles")
+      .transition()
+      .duration(600)
+      .attr("opacity", 0.0);
+
+    g.selectAll(".top_subjects")
+      .transition()
+      .duration(600)
+      .attr("opacity", 0.0);
+
+    g.selectAll(".final_bill")
+      .transition()
+      .duration(600)
+      .attr("opacity", 0.0);
   }
 
+
   /**
-   * showGrid - square grid
+   * showGeneral - square grid
    *
    * hides: filler count title
    * hides: filler highlight in grid
    * shows: square grid
    *
    */
-  function showGrid() {
-    g.selectAll(".growth")
+  function showGeneral() {
+    g.selectAll(".home_media")
+      .transition()
+      .duration(600)
+      .attr("opacity", 0.0);
+
+    g.selectAll(".general_1")
+      .transition()
+      .duration(200)
+      .style("opacity", 1);
+
+    g.selectAll(".general_2")
+      .transition()
+      .duration(0)
+      .style("opacity", 0);
+
+    g.selectAll(".bills_bubbles")
       .transition()
       .duration(200)
       .style("opacity", 0);
 
-
-  //   g.selectAll(".sub-title")
-  //     .transition()
-  //     .duration(0)
-  //     .attr("opacity", 0);
-
-    g.selectAll(".square")
+    g.selectAll(".final_bill")
       .transition()
-      .duration(600)
-      .delay(function(d,i) {
-        return 5 * d.row;
-      })
-      .attr("opacity", 1.0)
-      .attr("fill", "#ddd");
+      .duration(200)
+      .style("opacity", 0);
   }
 
   /**
-   * highlightGrid - show fillers in grid
+   * showGeneral_2 - show fillers in grid
    *
    * hides: barchart, text and axis
    * shows: square grid and highlighted
    *  incriminated. also ensures squares
    *  are moved back to their place in the grid
    */
-  function highlightGrid() {
+  function showGeneral_2() {
     hideAxis();
 
-    g.selectAll(".bar")
-      .transition()
-      .duration(600)
-      .attr("width", 0);
-
-    g.selectAll(".bar-text")
+    g.selectAll(".general_1")
       .transition()
       .duration(0)
-      .attr("opacity", 0);
+      .style("opacity", 0);
 
-    g.selectAll(".square")
+    g.selectAll(".general_2")
       .transition()
-      .duration(600)
-      .delay(function(d,i) {
-        return 5 * d.row;
-      })
-      .attr("opacity", 1.0)
-      .attr("fill", "#ddd");
+      .duration(0)
+      .style("opacity", 1);
 
-    // use named transition to ensure
-    // move happens even if other
-    // transitions are interrupted.
-    g.selectAll(".fill-square")
-      .transition("move-fills")
-      .duration(800)
-      .attr("x", function(d,i) {
-        return d.x;
-      })
-      .attr("y", function(d,i) {
-        return d.y;
-      });
-
-    g.selectAll(".fill-square")
+    g.selectAll(".general_1_zoomed")
       .transition()
-      .duration(800)
-      .attr("opacity", 1.0)
-      .attr("fill", function(d) { return d.incriminated ? '#D14E47' : '#ddd'; });
+      .duration(0)
+      .style("opacity", 0);
+
+    g.selectAll(".final_bill")
+      .transition()
+      .duration(200)
+      .style("opacity", 0);
   }
 
   /**
-   * showBar - barchart
+   * startBills - zoomed in time series
    *
    * hides: square grid
    * hides: histogram
-   * shows: barchart
+   * shows: zoomed in time series
    *
    */
-  function showBar() {
-    // ensure bar axis is set
-    showAxis(xAxisBar);
-
-    g.selectAll(".square")
-      .transition()
-      .duration(800)
-      .attr("opacity", 0);
-
-    g.selectAll(".fill-square")
-      .transition()
-      .duration(800)
-      .attr("x", 0)
-      .attr("y", function(d,i) {
-        return yBarScale(i % 5) + yBarScale.rangeBand() / 4;
-      })
+  function startBills() {
+    g.selectAll(".general_1_zoomed")
       .transition()
       .duration(0)
-      .attr("opacity", 0);
+      .style("opacity", 1);
 
-    g.selectAll(".hist")
+    g.selectAll(".general_2")
+      .transition()
+      .duration(0)
+      .style("opacity", 0);
+
+    g.selectAll(".bills_bubbles")
       .transition()
       .duration(600)
       .style("opacity", 0);
 
-    g.selectAll(".bar-text")
+    g.selectAll(".final_bill")
       .transition()
-      .duration(600)
-      .delay(1600)
-      .attr("opacity", 1.0);
-
-    g.selectAll(".bar")
-      .transition()
-      .delay(function(d,i) { return 300 * (i + 1);})
-      .duration(600)
-      .attr("width", function(d) { return xBarScale(d.values); });
-
-
+      .duration(200)
+      .style("opacity", 0);
   }
 
   /**
-   * showHist - shows the first part
+   * generalBills - shows the first part
    *  of the histogram of incriminated
    *
    * hides: barchart
@@ -723,40 +1420,32 @@ var scrollVis = function() {
    * shows: first half of histogram
    *
    */
-  function showHist() {
-    // switch the axis to histogram one
+  function generalBills() {
     hideAxis();
 
-    g.selectAll(".bar-text")
+    g.selectAll(".general_1_zoomed")
       .transition()
       .duration(0)
-      .attr("opacity", 0);
-
-    g.selectAll(".bar")
-      .transition()
-      .duration(600)
-      .attr("width", 0);
-
-
-    g.selectAll(".dots")
-      .transition()
-      .duration(600)
       .style("opacity", 0);
 
-    g.selectAll(".hist")
+    g.selectAll(".bills_bubbles")
       .transition()
       .duration(600)
       .style("opacity", 1);
 
-    // g.selectAll(".hist")
-    //   .transition()
-    //   .delay(function(d,i) { return 300 * (i + 1);})
-    //   .duration(600)
-    //   .attr("width", function(d) { return xAxis(d.values); });
+    g.selectAll(".top_subjects")
+      .transition()
+      .duration(600)
+      .style("opacity", 0);
+  
+    g.selectAll(".final_bill")
+      .transition()
+      .duration(200)
+      .style("opacity", 0);
   }
 
   /**
-   * showScatter - show all histogram
+   * showTopSubjects - show top subjects histogram
    *
    * hides: cough title and color
    * (previous step is also part of the
@@ -765,31 +1454,35 @@ var scrollVis = function() {
    * shows: all histogram bars
    *
    */
-  function showScatter() {
+  function showTopSubjects() {
     // ensure the axis to histogram one
     hideAxis();
 
-    // named transition to ensure
-    // color change is not clobbered
-    g.selectAll(".hist")
-      .transition()
-      .duration(500)
-      .style("opacity", 0);
-
-    g.selectAll(".growth")
+    g.selectAll(".bills_bubbles")
       .transition()
       .duration(600)
       .style("opacity", 0);
 
-    g.selectAll(".dots")
+
+    g.selectAll(".top_subjects")
       .transition()
       .duration(600)
       .style("opacity", 1);
 
+    g.selectAll(".voting")
+      .transition()
+      .duration(600)
+      .style("opacity", 0);
+
+    g.selectAll(".final_bill")
+      .transition()
+      .duration(200)
+      .style("opacity", 0);
+
   }
 
   /**
-   * showGrowth
+   * showVoting
    *
    * hides: nothing
    * (previous and next sections are histograms
@@ -797,24 +1490,28 @@ var scrollVis = function() {
    * shows: histogram
    *
    */
-  function showGrowth() {
+  function showVoting() {
     // ensure the axis to histogram one
     hideAxis();
 
-    g.selectAll(".growth")
-      .transition()
-      .duration(600)
-      .style("opacity", 1.0);
-
-    g.selectAll(".line")
+    g.selectAll(".top_subjects")
       .transition()
       .duration(600)
       .style("opacity", 0);
 
-
-    g.selectAll(".dots")
+    g.selectAll(".general_1")
       .transition()
       .duration(600)
+      .style("opacity", 0);
+
+    g.selectAll(".voting")
+      .transition()
+      .duration(600)
+      .style("opacity", 1);
+
+    g.selectAll(".final_bill")
+      .transition()
+      .duration(200)
       .style("opacity", 0);
   }
 
@@ -825,24 +1522,65 @@ var scrollVis = function() {
    * @param progress - 0.0 - 1.0 -
    *  how far user has scrolled in section
    */
-  function callToAction(progress) {
-    // g.selectAll(".growth")
-    //   .transition()
-    //   .duration(200)
-    //   .style("opacity", 0);
-
-    g.selectAll(".sub-title")
+  function finalVoting(progress) {
+    g.selectAll(".general_1")
       .transition()
-      .duration(0)
-      .attr("opacity", 0);
+      .duration(200)
+      .style("opacity", 0);
 
-    g.selectAll(".line")
+    g.selectAll(".voting")
+      .transition()
+      .duration(600)
+      .style("opacity", 0);
+
+    g.selectAll(".final_bill")
       .transition()
       .duration(200)
       .style("opacity", 1);
 
+    g.selectAll(".cluster_bubbles_articles")
+      .transition()
+      .duration(200)
+      .style("opacity", 0);
+    g.selectAll(".multi_grap_articles")
+      .transition()
+      .duration(200)
+      .style("opacity", 0);
   }
 
+  function articlesCluster(progress){
+    g.selectAll(".final_bill")
+      .transition()
+      .duration(200)
+      .style("opacity", 0);
+
+    g.selectAll(".cluster_bubbles_articles")
+      .transition()
+      .duration(200)
+      .style("opacity", 1);
+
+    g.selectAll(".multi_grap_articles")
+      .transition()
+      .duration(200)
+      .style("opacity", 0);
+  }
+
+  function articlesClusterBar(progress){
+    g.selectAll(".final_bill")
+      .transition()
+      .duration(200)
+      .style("opacity", 0);
+
+    g.selectAll(".cluster_bubbles_articles")
+      .transition()
+      .duration(200)
+      .style("opacity", 0);
+
+    g.selectAll(".multi_grap_articles")
+      .transition()
+      .duration(200)
+      .style("opacity", 1);
+  }
   /**
    * showAxis - helper function to
    * display particular xAxis
@@ -1021,4 +1759,4 @@ function display(data) {
 }
 
 // load data and display
-d3.csv("data/cleanedData.csv", display);
+d3.csv("data/unique_immigration_104_107.csv", display);
