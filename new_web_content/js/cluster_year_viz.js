@@ -66,11 +66,11 @@ var yAxis = d3.svg.axis()
 .scale(y)
 .orient("left");
 
-// var tip = d3.tip()
-//   .attr('class', 'd3-tip')
-//   .offset([-10, 0])
-//   // .html(function(d) {return "<strong>Mentions:</strong> <span style='color:#813386'>" + d.count + "</span>";});
-//   .html(function(d) {return "<span style='color:#813386'>" + d.count + "</span>   <strong>Mentions</strong>";});
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  // .html(function(d) {return "<strong>Mentions:</strong> <span style='color:#813386'>" + d.count + "</span>";});
+  .html(function(d) {return "<span style='color:#813386'>" + d.count + "</span>   <strong>Mentions</strong>";});
 
 var svg = d3.select("div#viz").append("svg")
   .attr("width", width + margin.left + margin.right)
@@ -78,7 +78,7 @@ var svg = d3.select("div#viz").append("svg")
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-// svg.call(tip);
+svg.call(tip);
 
 svg.append("g")
   .attr("class", "axis")
@@ -95,8 +95,8 @@ svg.selectAll("circle")
   .attr("cx", function(d) {return x(d.year);})
   .attr("cy", height/2)
   .attr("r", function(d) {return radScale(d.count);})
-  // .on("mouseover", tip.show)
-  // .on("mouseout", tip.hide)
+  .on("mouseover", tip.show)
+  .on("mouseout", tip.hide)
   .attr("class", function(d) {
     var returnClass;
     if (d.type==="bill") {returnClass="b circle";}
