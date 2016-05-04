@@ -1313,7 +1313,7 @@ var scrollVis = function() {
                    var article_y = d3.scale.linear()
                        .domain([article_min, article_max])
                        .range([height - margin.bottom, margin.top]);
-                   
+
                    var xAxis = d3.svg.axis()
                        .scale(x)
                        .orient("bottom")
@@ -1407,11 +1407,11 @@ var scrollVis = function() {
                    var marker_bill = final_article.append('g')
                        .attr("class", "marker")
                        .attr("transform", "translate(" + (x(1997) - mark.width/2) + "," + mark.height + ")");
-              
+
                     var marker_article = final_article.append('g')
                         .attr("class", "marker")
                         .attr("transform", "translate(" + (x(1999) - mark.width/2) + "," + mark.height + ")");
-                    
+
                    marker_bill.append('rect')
                        .attr('width', mark.width)
                        .attr('height', mark.height)
@@ -1485,6 +1485,7 @@ var scrollVis = function() {
                        .transition().delay(1500).duration(1000)
                        .style('opacity', 1);
 
+                final_article.style("opacity", 0);
                });
     // DOTS ON YEARS
     // var svg_dots = g.append("svg")
@@ -1582,17 +1583,17 @@ var scrollVis = function() {
   function showMain() {
     g.selectAll(".general_1")
       .transition()
-      .duration(0)
+      .duration(600)
       .style("opacity", 0);
 
     g.selectAll(".general_2")
       .transition()
-      .duration(0)
+      .duration(600)
       .style("opacity", 0);
 
     g.selectAll(".general_1_zoomed")
       .transition()
-      .duration(0)
+      .duration(600)
       .style("opacity", 0);
 
     g.selectAll(".home_media")
@@ -1637,22 +1638,22 @@ var scrollVis = function() {
 
     g.selectAll(".general_1")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 1);
 
     g.selectAll(".general_2")
       .transition()
-      .duration(0)
+      .duration(600)
       .style("opacity", 0);
 
     g.selectAll(".bills_bubbles")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
 
     g.selectAll(".final_bill")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
   }
 
@@ -1669,22 +1670,22 @@ var scrollVis = function() {
 
     g.selectAll(".general_1")
       .transition()
-      .duration(0)
+      .duration(600)
       .style("opacity", 0);
 
     g.selectAll(".general_2")
       .transition()
-      .duration(0)
+      .duration(600)
       .style("opacity", 1);
 
     g.selectAll(".general_1_zoomed")
       .transition()
-      .duration(0)
+      .duration(600)
       .style("opacity", 0);
 
     g.selectAll(".final_bill")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
   }
 
@@ -1714,7 +1715,7 @@ var scrollVis = function() {
 
     g.selectAll(".final_bill")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
   }
 
@@ -1747,7 +1748,7 @@ var scrollVis = function() {
 
     g.selectAll(".final_bill")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
   }
 
@@ -1783,7 +1784,7 @@ var scrollVis = function() {
 
     g.selectAll(".final_bill")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
 
   }
@@ -1818,7 +1819,7 @@ var scrollVis = function() {
 
     g.selectAll(".final_bill")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
   }
 
@@ -1832,7 +1833,7 @@ var scrollVis = function() {
   function finalVoting(progress) {
     g.selectAll(".general_1")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
 
     g.selectAll(".voting")
@@ -1842,56 +1843,56 @@ var scrollVis = function() {
 
     g.selectAll(".final_bill")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 1);
 
     g.selectAll(".cluster_bubbles_articles")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
 
     g.selectAll(".multi_grap_articles")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
   }
 
   function articlesCluster(progress){
     g.selectAll(".final_bill")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
 
     g.selectAll(".cluster_bubbles_articles")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 1);
 
     g.selectAll(".multi_grap_articles")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
   }
 
   function articlesClusterBar(progress){
     g.selectAll(".final_bill")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
 
     g.selectAll(".cluster_bubbles_articles")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
 
     g.selectAll(".bar_articles_graph")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
 
     g.selectAll(".multi_grap_articles")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 1);
   }
 
@@ -1901,15 +1902,15 @@ var scrollVis = function() {
   function articlesBArChart(progress){
     g.selectAll(".bar_articles_graph")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 1);
     g.selectAll(".line_graph_articles")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
     g.selectAll(".multi_grap_articles")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
 
   }
@@ -1917,18 +1918,18 @@ var scrollVis = function() {
   function articlesKosovoLineChart(progress){
     g.selectAll(".bar_articles_graph")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
 
- 
+
     g.selectAll(".line_graph_articles")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 1);
 
     g.selectAll(".word_cloud_cluster")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
   }
 
@@ -1936,17 +1937,17 @@ var scrollVis = function() {
   function articlesKosovoWordCloud(progress){
     g.selectAll(".line_graph_articles")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
 
     g.selectAll(".word_cloud_cluster")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 1);
 
     g.selectAll(".final_article")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
   }
 
@@ -1956,14 +1957,14 @@ var scrollVis = function() {
 
     g.selectAll(".word_cloud_cluster")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 0);
 
     g.selectAll(".final_article")
       .transition()
-      .duration(200)
+      .duration(600)
       .style("opacity", 1);
-      
+
   }
   /**
    * showAxis - helper function to
