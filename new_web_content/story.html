@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Stories</title>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+  <link rel="stylesheet" type="text/css" href="css/style_original.css"/>
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 </head>
@@ -33,37 +33,37 @@
       During the last phase we had already written a script - <a href="https://github.com/flymperopoulos/US-Immigration/blob/US_news/News_Scrapping.py">source code here</a> - to acquire newspaper articles referencing “immigration” in either their headlines or contents. We stored approximately 30000 articles from 1850 to 2005 in csv format. We plotted the frequency of newspaper articles mentioning “immigration” across different respective years, and the followings graphs are a sample of these visualizations.
       </p>
 
-      <img src="img/story_pic1.png" class="image-wrapper">
+      <img src="img_original/story_pic1.png" class="image-wrapper">
 
-      <img src="img/story_pic2.png" class="image-wrapper">
+      <img src="img_original/story_pic2.png" class="image-wrapper">
 
-      <img src="img/story_pic3.png" class="image-wrapper">
+      <img src="img_original/story_pic3.png" class="image-wrapper">
 
       <p>While the overall trend across years is a general increase in articles mentioning immigration, by zooming into specific ranges of years, certain interesting peaks are revealed.</p>
 
       <p>We further divided years from 1850 -2005 into different bins and used Indico’s API to extract the important keywords from those bins, as shown in the figures that follow.</p>
-      <img src="img/story_pic4.png" class="image-wrapper">
-      <img src="img/story_pic5.png" class="image-wrapper">
+      <img src="img_original/story_pic4.png" class="image-wrapper">
+      <img src="img_original/story_pic5.png" class="image-wrapper">
 
       <p>Looking carefully in the figures above, none of the results appear to be very interesting. After searching through all the top words of around 10 - 20 bins from 1850 to 2002, we found that the majority of the keywords were too general. We decided we needed to explore a far smaller range of years at any given time, and only for years where we have already seen there should be more interesting data. During the next phase we plan to explore these key words more deeply.</p>
 
       <p>We further implemented a visualization of a word cloud using D3.js. The following is a picture of a world cloud for a bin of approximately 10 years.</p>
       
-      <img src="img/story_pic6.png" class="image-wrapper">
+      <img src="img_original/story_pic6.png" class="image-wrapper">
       <p>Such words are, once again, too general and we cannot extract important insights from them.</p>
 
       <div class="main-title-sub">Clustering</div>
       <p>In order to better find relationships among years, we choose to perform document clustering. We used TF-IDF to generate a document feature vector matrix, which our clustering algorithms could then analyze and group.</p>
-      <img src="img/story_pic7.png" class="image-wrapper">
+      <img src="img_original/story_pic7.png" class="image-wrapper">
       <p>We decided to focus on K-means first. After tuning the parameters, the result of clustering articles from 1997 - 2002, is shown as follows.</p>
-      <img src="img/story_pic8.png" class="image-wrapper">
+      <img src="img_original/story_pic8.png" class="image-wrapper">
       <p>The five clusters are all very interesting and show different trends, and the key words show consistent ideas. Finally, we plot the year distribution of these clusters, as one can see below.</p>
 
-      <img src="img/story_pic9.png" class="image-wrapper">
-      <img src="img/story_pic10.png" class="image-wrapper">
-      <img src="img/story_pic11.png" class="image-wrapper">
-      <img src="img/story_pic12.png" class="image-wrapper">
-      <img src="img/story_pic13.png" class="image-wrapper">
+      <img src="img_original/story_pic9.png" class="image-wrapper">
+      <img src="img_original/story_pic10.png" class="image-wrapper">
+      <img src="img_original/story_pic11.png" class="image-wrapper">
+      <img src="img_original/story_pic12.png" class="image-wrapper">
+      <img src="img_original/story_pic13.png" class="image-wrapper">
       <p>Certain clusters center around specific years and some others are a bit more general. We plan on further exploring the more localized clusters.</p>
 
       <p>In order to address all learning goals for this project, some of us started looking into alternative clustering algorithms. We got a lot of information as to how to implement both K means and Hierarchical clustering algorithms and example code of implementing the later can be found <a href="https://github.com/flymperopoulos/US-Immigration/blob/US_news/HierarchicalClustering.py">here</a>.</p>
@@ -73,7 +73,7 @@
 
       <p>This is an example of a potential basic flow from a large scale perspective of our data, down to a much smaller and cluster-specific view.</p>
 
-      <img src="img/story_pic14.jpg" class="image-wrapper">
+      <img src="img_original/story_pic14.jpg" class="image-wrapper">
       <p>We plan on giving users and visitors the ability to explore any part of the timeline, but we also intend to include pointers to years that we have identified as significant, and provide more guidance and explanation to users so that they can fully understand the story of immigration in the United States.</p>
 
       <p>Below is a visualization we plan on using to explore the clustering and spread of various keywords in bills and articles across years (currently containing sample data).</p>
@@ -90,11 +90,11 @@
       <p>As one can see below, we have included a depiction of the clustering of the unique bills related to immigration as extracted through our API from Congresses 104 to 107. Certain evident groupings can be seen.</p>
 
 
-      <img src="img/story_pic15.png" class="image-wrapper">
+      <img src="img_original/story_pic15.png" class="image-wrapper">
 
       <p>After we completed the K-Means clustering operations, we were very interested in exploring different clustering algorithms and looked into the implementation of hierarchical clustering algorithm from scratch as alluded above. Finally, we decided on looking at the frequency of the bills through time and understanding the most important words/topics that rose during a peak year that coincided with that from the news dataset.</p>
 
-      <img src="img/story_pic16.png" class="image-wrapper">
+      <img src="img_original/story_pic16.png" class="image-wrapper">
 
       <p>For the final portion of the project we are looking into further understanding the connections between our different data sources and their link to immigration, and developing compelling visualizations that represent the end result to our viewers.</p>
 
@@ -118,7 +118,7 @@
       For instance, in the get_bill_info API method shown below, we are passing as an input vote_index (the vote document number for a given congress, year and chamber session) and load the relevant JSON vote document. After we extract the relevant bill type and number we loop through each bill type and collect the data we care about that populates the output of the method in the form of an array. 
      </p>
 
-     <img src="img/apiScreen.png" class="image-wrapper">
+     <img src="img_original/apiScreen.png">
      <p>
       For more documentation on the API, please look over at our IPython Notebook <a href="https://github.com/flymperopoulos/US-Immigration/blob/congress_etc/data-scraping-2.ipynb">here</a>.
      </p>
@@ -137,7 +137,7 @@
 
      <p>Cleaning, organizing, and compiling these different datasets was quite a project, but with this data unified we can easily create very interesting comparisons. Below we’ve compared the number of refugees entering the country, number of persons obtaining Legal Permanent Resident Status, and number of persons apprehended by the DHS per year. Simply being able to see that apprehensions and and LPR’s are on the same order of magnitude already shows the power of this data.</p>
      
-     <img src="img/init_data.jpg" class="image-wrapper">
+     <img src="img_original/init_data.jpg" class="image-wrapper">
 
      <p>Moving into the next stages of the project, we will also be exploring many of these categories by country of origin, to gain a richer understanding of the trends in immigration, and attempting to find correlations between this data and the other datasets we have collected.</p>
      <br>
@@ -149,6 +149,8 @@
      <p>As a next step, we are going to visualize this data with a word cloud correlated to different years. The sample graph could look something like <a href="">this</a>.</p>
     </div>
 
+    <script type="text/javascript" src="js/d3.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 
     <!-- d3 visualization we wrote -->
     <script src="js/cluster_year_viz.js"></script>

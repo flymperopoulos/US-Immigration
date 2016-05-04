@@ -332,7 +332,7 @@ var scrollVis = function() {
             .attr("class", "x axis")
             .attr("transform", "translate(10," + height + ")")
             .call(xLineAxis)
-            .style("fill", "#D9D9D9")
+            .style("fill", "#3b3b3b")
           .append("text")
             .attr("transform", "translate(" + width/2 + ",35)")
             .attr("text-anchor", "middle")
@@ -343,7 +343,7 @@ var scrollVis = function() {
             .attr("class", "y axis")
             .attr("transform", "translate(50, 0)")
             .call(yLineAxis)
-            .style("fill", "#D9D9D9")
+            .style("fill", "#3b3b3b")
             .style("opacity", 1)
           .append("text")
             .attr("transform", "rotate(-90)")
@@ -358,7 +358,7 @@ var scrollVis = function() {
           .attr("y", 15)
           .attr("text-anchor", "middle")
           .attr("font-size", "16px")
-          .style("fill", "#D9D9D9")
+          .style("fill", "#3b3b3b")
           .text("Immigrants Per Year Since 1820");
       });
 
@@ -2129,6 +2129,13 @@ var scrollVis = function() {
       .transition()
       .duration(600)
       .attr("opacity", 0.0);
+      
+    g.selectAll(".time_series")
+      .transition()
+      .duration(600)
+      .attr("opacity", 0.0);
+
+    
   }
 
 
