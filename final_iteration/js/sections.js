@@ -1462,7 +1462,7 @@ var scrollVis = function() {
 
             imprisoned.append("svg:image")
               .attr("class", "imprisoned")
-              .attr("xlink:href", "img/kosovo_word_cluster.png")
+              .attr("xlink:href", "img/imprisonment.png")
               .attr("x", 0)
               .attr("y", -height*0.1)
               .attr("height", height)
@@ -1681,7 +1681,7 @@ var scrollVis = function() {
 
             history.append("svg:image")
               .attr("class", "history")
-              .attr("xlink:href", "img/kosovo_word_cluster.png")
+              .attr("xlink:href", "img/history.png")
               .attr("x", 0)
               .attr("y", -height*0.1)
               .attr("height", height)
