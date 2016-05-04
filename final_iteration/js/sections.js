@@ -1244,9 +1244,142 @@ var scrollVis = function() {
             word_cloud_cluster.selectAll(".word_cloud_cluster")
               .attr("opacity", 0);
 
+              /**
+               * VIZ 15 - naturalization statistics graph
+               * class: nat_stats
+               */
+
+               var nat_stats = g.append("svg")
+                .attr("class", "nat_stats")
+
+              d3.csv("data/nat_data.csv", function(error, data) {
+
+                console.log(data);
+                // Scale the range of the data
+                var years = new Set(),
+                    counts = new Set();
+
+                for (var i=0; i < data.length; i++) {
+                  years.add(data[i]["Year"]);
+                  counts.add(data[i]["Petitions filed"]);
+                  counts.add(data[i]["Total naturalized"]);
+                  counts.add(data[i]["Petitions denied"]);
+                };
+
+                years = Array.from(years);
+                counts = Array.from(counts);
+
+                // years_int = [];
+                counts_int = [];
+
+                counts.forEach(function(value){counts_int.push(parseInt(value))})
+                // years.forEach(function(value){years_int.push(parseInt(value))})
+
+                var min_year = d3.min(years),
+                   max_year = d3.max(years),
+                   min_count = d3.min(counts_int),
+                   max_count = d3.max(counts_int);
+
+                var x = d3.scale.linear()
+                  .domain([min_year, max_year])
+                  .range([margin.left, width]);
+
+                var y = d3.scale.linear()
+                  .domain([min_count, max_count])
+                  .range([height - margin.bottom, margin.top]);
+
+                var xAxis = d3.svg.axis()
+                  .scale(x)
+                  .orient("bottom")
+                  .tickFormat(d3.format("g"));
+
+                var yAxis = d3.svg.axis()
+                  .scale(y)
+                  .orient("left");
+
+                var petitionLine = d3.svg.line()
+                  .x(function(d) { return x(d["Year"]); })
+                  .y(function(d) { return y(d["Petitions filed"]); });
+
+                var natLine = d3.svg.line()
+                  .x(function(d) { return x(d["Year"]); })
+                  .y(function(d) { return y(d["Total naturalized"]); });
+
+                var deniedLine = d3.svg.line()
+                  .x(function(d) { return x(d["Year"]); })
+                  .y(function(d) { return y(d["Petitions denied"]); });
+
+              // Add the valueline path.
+              nat_stats.append("path")
+                  .attr("class", "nat_stats")
+                  .attr("stroke", "#f39d41")
+                  .attr("fill", "none")
+                  .attr("d", petitionLine(data));
+
+              nat_stats.append("path")
+                  .attr("class", "nat_stats")
+                  .attr("stroke", "steelblue")
+                  .attr("fill", "none")
+                  .attr("d", natLine(data));
+
+              nat_stats.append("path")
+                  .attr("class", "nat_stats")
+                  .attr("stroke", "#e04836")
+                  .attr("fill", "none")
+                  .attr("d", deniedLine(data));
+
+              // // Add the scatterplot
+              // general_1.selectAll("dot")
+              //     .data(data)
+              //   .enter().append("circle")
+              //     .attr("fill", "#a1a1a1")
+              //     .attr("r", 3.5)
+              //     .attr("cx", function(d) { return x(d["Year"]); })
+              //     .attr("cy", function(d) { return y(d["Number"]); });
+
+              // Add the X Axis
+              nat_stats.append("g")
+                  .attr("class", "x axis")
+                  .attr("transform", "translate(10," + height + ")")
+                  .call(xAxis)
+                  .style("fill", "#D9D9D9")
+                .append("text")
+                  .attr("transform", "translate(" + width/2 + ",35)")
+                  .attr("text-anchor", "middle")
+                  .text("Year");
+
+              // Add the Y Axis
+              nat_stats.append("g")
+                  .attr("class", "y axis")
+                  .attr("transform", "translate(50, 0)")
+                  .call(yAxis)
+                  .style("fill", "#D9D9D9")
+                  .style("opacity", 1)
+                .append("text")
+                  .attr("transform", "rotate(-90)")
+                  .attr("x", -180)
+                  .attr("y", -50)
+                  .attr("dy", ".71em")
+                  .style("text-anchor", "end")
+                  .text("Number Immigrants (in thousands)");
+
+              nat_stats.append("text")
+                .attr("x", width/2)
+                .attr("y", 15)
+                .attr("text-anchor", "middle")
+                .attr("font-size", "16px")
+                .style("fill", "#D9D9D9")
+                .text("Immigrants Per Year Since 1820");
+
+
+              word_cloud_cluster.selectAll(".nat_stats")
+                .attr("opacity", 0);
+
+              }
+            );
 
               /**
-               * VIZ 15 - final article graph
+               * VIZ 18 - final article graph
                * class: final_article
                */
 
@@ -1565,9 +1698,13 @@ var scrollVis = function() {
     activateFunctions[10] = articlesBArChart;
     activateFunctions[11] = articlesKosovoLineChart;
     activateFunctions[12] = articlesKosovoWordCloud;
-    activateFunctions[13] = finalArticle;
+    activateFunctions[13] = dhsNaturalization;
+    // activateFunctions[14] = dhsSummary;
+    // activateFunctions[15] = dhsApprehended;
+    // activateFunctions[16] = historyLesson;
+    activateFunctions[14] = finalArticle;
 
-    for(var i = 0; i < 14; i++) {
+    for(var i = 0; i < 15; i++) {
       updateFunctions[i] = function() {};
     }
   };
@@ -1606,6 +1743,11 @@ var scrollVis = function() {
       .attr("opacity", 0.0);
 
     g.selectAll(".final_bill")
+      .transition()
+      .duration(600)
+      .attr("opacity", 0.0);
+
+    g.selectAll(".nat_stats")
       .transition()
       .duration(600)
       .attr("opacity", 0.0);
@@ -1942,17 +2084,59 @@ var scrollVis = function() {
       .duration(600)
       .style("opacity", 1);
 
+    g.selectAll(".nat_stats")
+      .transition()
+      .duration(600)
+      .style("opacity", 0);
+  }
+
+  function dhsNaturalization(progress) {
+    g.selectAll(".word_cloud_cluster")
+      .transition()
+      .duration(600)
+      .style("opacity", 0);
+
+    g.selectAll(".nat_stats")
+      .transition()
+      .duration(600)
+      .style("opacity", 1);
+
     g.selectAll(".final_article")
       .transition()
       .duration(600)
       .style("opacity", 0);
   }
 
+  function dhsSummary(progress) {
+
+
+  }
+
+  function dhsApprehended(progress) {
+
+  }
+
+  function historyLesson(progress) {
+    g.selectAll(".final_article")
+      .transition()
+      .duration(600)
+      .style("opacity", 0);
+
+    g.selectAll(".history")
+      .transition()
+      .duration(600)
+      .style("opacity", 0);
+
+
+  }
+
+
+
 
   function finalArticle(progress){
 
 
-    g.selectAll(".word_cloud_cluster")
+    g.selectAll(".history")
       .transition()
       .duration(600)
       .style("opacity", 0);
