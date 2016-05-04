@@ -687,7 +687,7 @@ var scrollVis = function() {
              .attr("class", "x axis")
              .attr("transform", "translate(10," + height + ")")
              .call(xLineAxis)
-             .style("fill", "#D9D9D9")
+             .style("fill", "#3b3b3b")
            .append("text")
              .attr("transform", "translate(" + width/2 + ",35)")
              .attr("text-anchor", "middle")
@@ -698,7 +698,7 @@ var scrollVis = function() {
              .attr("class", "y axis")
              .attr("transform", "translate(50, 0)")
              .call(yLineAxis)
-             .style("fill", "#D9D9D9")
+             .style("fill", "#3b3b3b")
              .style("opacity", 1)
            .append("text")
              .attr("transform", "rotate(-90)")
@@ -713,7 +713,7 @@ var scrollVis = function() {
            .attr("y", 15)
            .attr("text-anchor", "middle")
            .attr("font-size", "16px")
-           .style("fill", "#D9D9D9")
+           .style("fill", "#3b3b3b")
            .text("Immigrants Per Year Since 1820");
        });
 
@@ -725,41 +725,33 @@ var scrollVis = function() {
       var bills_bubbles = g.append("svg")
         .attr("class", "bills_bubbles")
 
-       bills_bubbles.append("circle")
-         .attr("class", "bills_bubbles")
-         .attr("cx", width/4)
-         .attr("cy", height/2)
-         .attr("r", Math.sqrt(6427))
-         .attr("fill", "#B6212D");
-
        bills_bubbles.append("text")
          .attr("class", "bills_bubbles")
-         .attr("x", width/8)
-         .attr("y", height*0.7)
+         .attr("x", width/2.6)
+         .attr("y", height*0.8)
          .attr("fill", "#0000000")
          .text("114 Bills on Immigration");
 
        bills_bubbles.append("circle")
          .attr("class", "bills_bubbles")
-         .attr("cx", 3*width/4)
+         .attr("cx", width/2)
          .attr("cy", height/2)
          .attr("r", Math.sqrt(17259))
          .attr("fill", "#6D929B");
 
        bills_bubbles.append("circle")
          .attr("class", "bills_bubbles")
-         .attr("cx", 3*width/4)
+         .attr("cx", width/2)
          .attr("cy", height/2)
          .attr("r", Math.sqrt(12259))
          .attr("fill", "#C1DAD6");
 
        bills_bubbles.append("text")
          .attr("class", "bills_bubbles")
-         .attr("x", 2.6*width/4)
-         .attr("y", height*0.8)
+         .attr("x", width/2.49)
+         .attr("y", height*0.85)
          .attr("fill", "#0000000")
          .text("71% of Bills Passed");
-
 
         /**
          * VIZ 6 - top subjects graph
@@ -1614,6 +1606,11 @@ var scrollVis = function() {
       .attr("opacity", 0.0);
 
     g.selectAll(".final_bill")
+      .transition()
+      .duration(600)
+      .attr("opacity", 0.0);
+
+    g.selectAll(".final_article")
       .transition()
       .duration(600)
       .attr("opacity", 0.0);
