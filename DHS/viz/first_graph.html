@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <style type="text/css">
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: black;
+            shape-rendering: crispEdges;
+        }
+
+        .axis text {
+            font-family: sans-serif;
+            font-size: 11px;
+        }
+    </style>
+    <script type="text/javascript" src="d3.min.js"></script>
+</head>
+<body>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+  <script>
+    var margin = {top: 20, right: 80, bottom: 30, left: 80},
+        width = 1000 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+    // var data_dhs = [{"count": 202, "year": 2000},
+    //                 {"count": 215, "year": 2001},
+    //                 {"count": 179, "year": 2002},
+    //                 {"count": 199, "year": 2003},
+    //                 {"count": 134, "year": 2003},
+    //                 {"count": 176, "year": 2010}];
+
+    // console.log(data_dhs);
+    data_dhs = d3.csv('../d3_import.csv', function(error, data_dhs) {
+        console.log(data_dhs)
+
+    var data_news = [{"count": 152, "year": 2000},
+                     {"count": 189, "year": 2002},
+                     {"count": 179, "year": 2004},
+                     {"count": 199, "year": 2006},
+                     {"count": 134, "year": 2008},
+                     {"count": 176, "year": 2010}];
+
+    var data_bills = [{"count":123, "year": 2000},
+                      {"count":189, "year": 2002},
+                      {"count":152, "year": 2004},
+                      {"count":100, "year": 2006},
+                      {"count":134, "year": 2008},
+                      {"count":171, "year": 2010}];
+
+    var years = new Set(),
+        counts = new Set(),
+        dhs_counts = new Set();
+
+    for (var i=0; i < data_dhs.length; i++) {
+        years.add(data_dhs[i].year);
+        dhs_counts.add(data_dhs[i].count);
+    };
+
+    for (var i=0; i < data_news.length; i++) {
+        years.add(data_news[i].year);
+        counts.add(data_news[i].count);
+    }
+
+    for (var i=0; i < data_bills.length; i++) {
+        years.add(data_bills[i].year);
+        counts.add(data_bills[i].count);
+    }
+
+    years = Array.from(years);
+    counts = Array.from(counts);
+    dhs_counts = Array.from(dhs_counts);
+
+    var min_year = d3.min(years),
+        max_year = d3.max(years),
+        min_count = d3.min(counts),
+        max_count = d3.max(counts),
+        dhs_min = d3.min(dhs_counts),
+        dhs_max = d3.max(dhs_counts);
+
+
+    var svg = d3.select("body").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("class", "main")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var x = d3.scale.linear()
+        .domain([min_year, max_year])
+        .range([margin.left, width - margin.right])
+
+    var y = d3.scale.linear()
+        .domain([min_count, max_count])
+        .range([height - margin.bottom, margin.top])
+
+    var dhsY = d3.scale.linear()
+        .domain([dhs_min, dhs_max])
+        .range([height - margin.bottom, margin.top])
+
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom")
+        .tickFormat(d3.format("g"));
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("right");
+
+    var dhsYAxis = d3.svg.axis()
+        .scale(dhsY)
+        .orient("left");
+
+    svg.append("g")
+       .attr("class", "axis")
+       .attr("transform", "translate(0," + height + ")")
+       .call(xAxis);
+
+    svg.append("g")
+       .attr("class", "axis")
+       .attr("transform", "translate(" + width + ",0)")
+       .call(yAxis);
+
+    svg.append("g")
+       .attr("class", "axis")
+       .attr("transform", "translate(" + margin.left + ",0")
+       .call(dhsYAxis);
+
+    var lineGen = d3.svg.line()
+        .x(function(d) { return x(d.year); })
+        .y(function(d) { return y(d.count); })
+        .interpolate("linear");
+
+    var dhsLineGen = d3.svg.line()
+        .x(function(d) { return x(d.year); })
+        .y(function(d) { return dhsY(d.count); })
+        .interpolate("linear");
+
+    svg.append("path")
+        .style("opacity", 0)
+        .attr('d', dhsLineGen(data_dhs))
+        .attr('stroke', 'green')
+        .attr('stroke-width', 2)
+        .attr('fill', 'none')
+        .transition().delay(0).duration(2000)
+        .style("opacity", 1);
+
+    svg.append("path")
+        .style("opacity", 0)
+        .attr('d', lineGen(data_news))
+        .attr('stroke', 'blue')
+        .attr('stroke-width', 2)
+        .attr('fill', 'none')
+        .transition().delay(500).duration(2000)
+        .style("opacity", 1);
+
+    svg.append("path")
+        .style("opacity", 0)
+        .attr('d', lineGen(data_bills))
+        .attr('stroke', 'red')
+        .attr('stroke-width', 2)
+        .attr('fill', 'none')
+        .transition().delay(1000).duration(2000)
+        .style("opacity", 1);
+
+    var mark = {'width': 20, 'height': 40};
+
+    var marker = svg.append('g')
+        .attr("class", "marker")
+        .attr("transform", "translate(" + (x(1996) - mark.width/2) + "," + mark.height + ")");
+
+
+    marker.append('rect')
+        // .attr('x', x(2004) - marker.width/2)
+        // .attr('y', margin.top + marker.height)
+        .attr('width', mark.width)
+        .attr('height', mark.height)
+        .attr('fill', 'grey')
+        .style('opacity', 0)
+        .transition().delay(1500).duration(1000)
+        .style('opacity', 1);
+
+    marker.append("text")
+        .attr("x", mark.width/2)
+        .attr("y", mark.height/2)
+        .text("1996")
+        .attr("transform", "rotate(-90, " + mark.width/2 + "," + mark.height/2 + ")")
+        .attr("dy", mark.width/4)
+        .style('opacity', 0)
+        .style("text-anchor", "middle")
+        .transition().delay(1500).duration(1000)
+        .style('opacity', 1);
+
+    marker.append("polygon")
+        .attr("points", "" + 0 + "," + mark.height + " " + mark.width + "," + mark.height + " " + mark.width/2 + "," + (mark.width + mark.height) + "")
+        .attr("fill", "gray")
+        // .style("stroke", "gray")
+        .style('opacity', 0)
+        .transition().delay(1500).duration(1000)
+        .style('opacity', 1);
+
+    marker.append("line")
+        .attr("x1", mark.width/2)
+        .attr("x2", mark.width/2)
+        .attr("y1", mark.height + mark.width)
+        .attr("y2", height - mark.height)
+        .style("stroke", "grey")
+        .style('opacity', 0)
+        .transition().delay(1500).duration(1000)
+        .style('opacity', 1);
+
+    });
+
+    </script>
+    </body>
