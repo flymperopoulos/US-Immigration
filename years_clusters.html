@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Cluster Analysis</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- d3 Visualization CSS -->
+    <link href="css/d3-viz.css" rel="stylesheet">
+    <style>
+    p    { font-weight: normal}
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('img/pastel.png')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Important Years and Clustering</h1>
+                        <h2 class="subheading">Our second project story</h2>
+                        <span class="meta">Posted by Zhecan Wang, Nur Shalapobersky, Filippos Lymperopoulos on <b>April 24, 2016</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <h2>Overview</h2>
+                    <p>We have thus far explored datasets on US bills, newspaper articles, government expenditure spreadsheets, and Homeland Security statistics, and we've performed independent analyses on all these different sources to better understand how the United States has reacted to the hot topic of Immigration.</p>
+                    <p>After collecting and pre-processing these data sources we were interested in beginning a basic exploration through time. The goal of this exploration was to point out specific years and trends across our data sets, and also to bring to the table ideas for further discussion and presentation.</p>
+                    <p>We concluded that the best way to complement the other immigration team’s work was to find the years that have been influential in shaping and changing the United States’ stance on immigration and foreigners.</p>
+                    <p>We each separately constructed scripts to find important years to analyze our separate datasets and came up with several interesting insights and correlations.</p>
+                    <p>Finally, we extensively analyzed methods of clustering and bagan vizualizing our conclusions using D3.js, a data vizualization library, written in Javascript.</p>
+                    <h2>US news</h2>
+                    <p>During the last phase we had already written a script - <a href="https://github.com/flymperopoulos/US-Immigration/blob/US_news/News_Scrapping.py">source code here</a> - to acquire newspaper articles referencing “immigration” in either their headlines or contents. We stored approximately 30000 articles from 1850 to 2005 in csv format. We plotted the frequency of newspaper articles mentioning “immigration” across different respective years, and the followings graphs are a sample of these visualizations. </p>
+                    <figure>
+                    <img src="img/Zhecan_Wang_StoryII/png%3Bbase6415c70221082a0bba.png" width="100%">
+                    </figure>
+
+                    <figure>
+                    <img src="img/Zhecan_Wang_StoryII/png%3Bbase64840295898e90792d.png" width="100%">
+                    </figure>
+
+                    <figure>
+                    <img src="img/Zhecan_Wang_StoryII/png%3Bbase642a81f58fc4b76448.png" width="100%">
+                    </figure>
+
+                    <p>While the overall trend across years is a general increase in articles mentioning immigration, by zooming into specific ranges of years, certain interesting peaks are revealed.</p>
+                    <p>We further divided years from 1850 -2005 into different bins and used Indico’s API to extract the important keywords from those bins, as shown in the figures that follow.</p>
+
+                    <img src="img/Zhecan_Wang_StoryII/png%3Bbase64a2f13148771b072.png">
+                    <img src="img/Zhecan_Wang_StoryII/png%3Bbase6460dd0bbfc8967da4.png">
+
+
+
+                    <p>Looking carefully in the figures above, none of the results appear to be very interesting. After searching through all the top words of around 10 - 20 bins from 1850 to 2002, we found that the majority of the keywords were too general. We decided we needed to explore a far smaller range of years at any given time, and only for years where we have already seen there should be more interesting data. During the next phase we plan to explore these key words more deeply.</p>
+                    <p>We further implemented a visualization of a word cloud using D3.js. The following is a picture of a world cloud for a bin of approximately 10 years.</p>
+
+                    <img src="img/Zhecan_Wang_StoryII/%5C%5C.png">
+
+                    <p>Such words are, once again, too general and we cannot extract important insights from them.</p>
+
+                    <h3>Clustering</h3>
+
+                    <p>In order to better find relationships among years, we choose to perform document clustering. We used TF-IDF to generate a document feature vector matrix, which our clustering algorithms could then analyze and group.</p>
+
+                    <img src="img/Zhecan_Wang_StoryII/png%3Bbase64c0125ae0964c3874.png">
+                    <p>We decided to focus on K-means first. After tuning the parameters, the result of clustering articles from 1997 - 2002, is shown as follows. </p>
+
+                    <figure>
+                    <img src="img/Zhecan_Wang_StoryII/png%3Bbase641ad7bf92f39110da.png" width="100%">
+                    </figure>
+
+                    <p>The five clusters are all very interesting and show different trends, and the key words show consistent ideas. Finally, we plot the year distribution of these clusters, as one can see below.</p>
+
+                    <img src="img/Zhecan_Wang_StoryII/png%3Bbase64fbfff9fb3228313e.png">
+                    <img src="img/Zhecan_Wang_StoryII/png%3Bbase6484c5773fb2c4e5a1.png">
+                    <img src="img/Zhecan_Wang_StoryII/png%3Bbase645c9347c16bd0b039.png">
+                    <img src="img/Zhecan_Wang_StoryII/png%3Bbase6438c27898199bf7b.png">
+                    <img src="img/Zhecan_Wang_StoryII/png%3Bbase6488570cc316cebd96.png">
+
+
+                    <p>Certain clusters center around specific years and some others are a bit more general. We plan on further exploring the more localized clusters.</p>
+                    <p>In order to address all learning goals for this project, some of us started looking into alternative clustering algorithms. We got a lot of information as to how to implement both K means and Hierarchical clustering algorithms and example code of implementing the later can be found here (<a href="https://github.com/flymperopoulos/US-Immigration/blob/US_news/HierarchicalClustering.py">source code</a>).</p>
+
+                    <h2>Visualization</h2>
+
+                    <p>During this phase of our project we also began to design our final visualizations in a way that would best tell our story. To satisfy all of our learning goals, we wanted to ensure that our visualizations provided different ways of looking at our data (e.g. from a time-based perspective, or from a keyword or cluster perspective).</p>
+
+                    <p>This is an example of a potential basic flow from a large scale perspective of our data, down to a much smaller and cluster-specific view.</p>
+
+                    <figure>
+                        <img src="img/viz_chart.jpg">
+                    </figure>
+
+                    <p>We plan on giving users and visitors the ability to explore any part of the timeline, but we also intend to include pointers to years that we have identified as significant, and provide more guidance and explanation to users so that they can fully understand the story of immigration in the United States.</p>
+
+                    <p>Below is a visualization we plan on using to explore the clustering and spread of various keywords in bills and articles across years (currently containing sample data).</p>
+
+                    <div id="viz"></div>
+
+                    <h2>US Congress and Bills</h2>
+                    <p>Up until this point, we have managed to create an API (<a href="https://github.com/flymperopoulos/US-Immigration/blob/congress_etc/data-scraping-2.ipynb">source code here</a>) that successfully pulls information on all bills and votes present in Congresses 104 to 107, i.e. 1994 to 2002. When trying to access congresses of most recent years or years that prior to 2002, we realized that the json architecture significantly differed and there were too many exceptions to take care of in our API that we decided to zoom into the afore-mentioned years.</p>
+
+                    <p>We collected all bills relevant to immigration and performed a variety of different methods with our newly-gained knowledge from this mid-project phase. We implemented clustering and looked deeply into tf-idf vectorizing to be able to segment our immigration-centered bills with years and specific bills that we considered important.</p>
+
+                    <p>A topic that troubled us for quite some time was including the correct amount of information in our analysis. Several bills had been revisited multiple times and we wanted to make sure that when tf idf and other grouping, i.e. clustering, methods were applied on the data set, no specific sections or bills content were diminished in their importance because of their overwhelming presence due to multiple number of re-voting procedures.  As a result, we decide to keep the “most recent” version of all bills present in our dataset.</p>
+
+                    <p>As one can see below, we have included a depiction of the clustering of the unique bills related to immigration as extracted through our API from Congresses 104 to 107. Certain evident groupings can be seen. </p>
+
+                    <figure>
+                    <img src="clusters.png" width="100%">
+                    </figure>
+
+                    <p>
+                    After we completed the K-Means clustering operations, we were very interested in exploring different clustering algorithms and looked into the implementation of hierarchical clustering algorithm from scratch as alluded above. Finally, we decided on looking at the frequency of the bills through time and understanding the most important words/topics that rose during a peak year that coincided with that from the news dataset.
+                    </p>
+
+                    <figure>
+                    <img src="years.png" width="100%">
+                    </figure>
+
+                    <p>For the final portion of the project we are looking into further understanding the connections between our different data sources and their link to immigration, and developing compelling visualizations that represent the end result to our viewers.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://github.com/flymperopoulos/US-Immigration/" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">We would like to thank Paul Ruvolo for his guidance and help throughout the project.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Various d3 scripts -->
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+    <!-- d3 visualization we wrote -->
+    <script src="js/cluster_year_viz.js"</script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+
+
+
+</body>
+
+</html>
