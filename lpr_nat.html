@@ -1,0 +1,313 @@
+!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Legally Permanent Residents and Naturalized Citizens</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <script>
+    window.onload = initLinks;
+
+    var year = 2013;
+    var group = 'Asia'; 
+
+    function initLinks() {
+      // document.getElementById("prevLink").onclick = processPrevious;
+      // document.getElementById("nextLink").onclick = processNext;
+    }
+
+    function processPreviousErr() {
+      console.log('in process previous')
+      if (year > 2013) {
+        console.log("year in if statement", year)
+        year = 2006;
+        console.log("year in if statement AFTER", year)
+      }
+      year++;
+      console.log("group", group); 
+      console.log("year", year)
+      var name = year+"_"+group+"_"+"error.png"; 
+      console.log('name', name)
+      document.getElementById("panoramaErr").src = "img/"+name;
+      return false;
+    }
+
+    function processNextErr() {
+      console.log('in process next')
+      if (year < 2007) {
+        console.log("year in if statement", year)
+        year = 2013;
+      }
+      console.log("year", year)
+      year--;
+      var name = year+"_"+group+"_"+"error.png"; 
+      document.getElementById("panoramaErr").src =  "img/"+name;
+      return false;
+    }
+
+    function processPreviousAct() {
+      console.log('in process previous')
+      if (year > 2013) {
+        year = 2006;
+      }
+      year++;
+      console.log("group", group); 
+      console.log("year", year)
+      var name = year+"_"+group+"_"+"actexp.png"; 
+      console.log('name', name)
+      document.getElementById("panoramaAct").src = "img/"+name;
+      return false;
+    }
+
+    function processNextAct() {
+      console.log('in process next')
+      if (year < 2007) {
+        year = 2013;
+      }
+      year--;
+      var name = year+"_"+group+"_"+"actexp.png"; 
+      document.getElementById("panoramaAct").src =  "img/"+name;
+      return false;
+    }
+
+    function setGroup(g){ 
+      console.log("in set group", g)
+      group = g
+    }
+
+  </script>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('img/immigration.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1 >Legally Permanent Residents and Naturalized Citizens</h1>
+                        <span class="meta" style='color:white'>Posted by Casey Alvarado and Shivali Chandra on May 4, 2016</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <p>Not too long ago, <a href="http://flymperopoulos.github.io/US-Immigration/change_over_time.html">we talked about</a> the top states for legal permanent residents by foreign-born group. Since then, we have expanded into two related categories: finding the most unexpected states for a group, and finding the same data for naturalized citizens by group. </p>
+                    <p>When we looked at the top states (which can be viewed in <a href="http://flymperopoulos.github.io/US-Immigration/change_over_time.html">this blog post</a>), we came upon the same names over and over again: “California”, “New York”, “Texas”, “Florida”, “New Jersey”. While it was certainly interesting to see the differences between groups (which groups go to Texas? Which don’t?) this didn’t really reveal anything new, because states with large populations will naturally have large numbers of immigrants as well, and as communities form more people will be drawn to the same places. So, we decided to do a comparison of what the expected number of legally permanent residents in any given state by foreign-born group was versus the actual number. We got the expected amount by calculating the ratio of legally permanent residents in a state over the total in the country, and multiplied that by the total number of legally permanent residents in a particular group. This gave us a rough estimate of what we should expect the actual number to be.</p>
+                    <p>With this value, we then did error calculations to see where the greatest deviation lies. For example, for African legally permanent residents in 2006, Minnesota, North Dakota, and South Dakota all had significantly more actual legally permanent residents than expected (ranging from 250-300% error). On the other hand, Hawaii, Florida, and Arkansas had fewer African legally permanent residents than expected (ranging from 75-100% error). </p>
+                    <p>Below is an interactive visualization displaying graphs for each foreign-born population by year. The top graph shows the five states with the most actual legally permanent residents, the five states with the most expected legally permanent residents, and the ten states with the most discrepancy between expected and actual (five where there were more than expected and five where there were fewer than expected). In most graphs, many states are repeated in these groups so they are only displayed once in the graph. In the bottom graph, the error rate between the expected and actual for each of these states is shown (negative values indicate more actual than expected and positive values indicate more expected than actual). </p>
+                    
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+                        <span class="caret"></span></button>
+
+                        <ul class="dropdown-menu">
+                          <li onclick="setGroup('Asia')">Asia</li>
+                          <li onclick="setGroup('Africa')">Africa</li>
+                          <li onclick="setGroup('Europe')">Europe</li>
+                          <li onclick="setGroup('Oceania')">Oceania</li>
+                          <li onclick="setGroup('Northern America')">Northern America</li>
+                          <li onclick="setGroup('Latin America')">Latin America</li>
+                        </ul>
+                      </div>  
+                      <div id="panoramaDivErr"  style="width:100%" align="center">
+                        <button onclick = "processNextErr()" style = "width: 50px; height: 50px; float: left"><img src="http://iconshow.me/media/images/ui/ios7-icons/png/512/chevron-left.png" width="5%" style = "width: 5%; position:relative;"></button>
+                        <img id="panoramaErr" src = "" alt="waypoint" height= "90%" width = "100%">
+                        <button onclick = "processPreviousErr()" style = "width: 50px; height: 50px; float: right"><img src="http://www.pixempire.com/images/preview/right-arrow-icon.jpg" style = "position:relative; width: 5%" ></button>
+                      </div>
+
+                      <div id="panoramaDivAct"  style="width:100%" align="center">
+                        <button onclick = "processNextAct()" style = "width: 50px; height: 50px; float: left"><img src="http://iconshow.me/media/images/ui/ios7-icons/png/512/chevron-left.png" width="5%" style = "width: 5%; position:relative;"></button>
+                        <img id="panoramaAct" src = "" alt="waypoint" height= "90%" width = "100%">
+                        <button onclick = "processPreviousAct()" style = "width: 50px; height: 50px; float: right"><img src="http://www.pixempire.com/images/preview/right-arrow-icon.jpg" style = "position:relative; width: 5%" ></button>
+                      </div>
+
+                    <p>Before moving to exploring naturalized citizenship data, we plotted the overall number of legally permanent residents for each group over time to see if there were any interesting trends:</p>
+                    <figure>
+                        <img src='img/lpr.png' width='100%'>
+                    </figure>
+                    <p>The next step we took was to explore and display the same data for naturalized citizens. We graphed the groups over time:</p>
+                    <figure>
+                        <img src='img/nat.png' width='100%'>
+                    </figure>
+                    <p>When looking at both graphs, there is a peak for nearly all groups in 2008 - most significantly, Latin Americans and Asians. We looked into why this may be the case and found that in 2007, there was a drastic increase in applications filed for naturalization status because afterwards there would be a change in the fees involved. Additionally, Hispanic media and organizations reached out to their community significantly more during this time period in order to increase awareness about how to gain citizenship and its benefits. Through the year of 2007, 1,380,000 applications for naturalization were filed and by the end of the year over 1 million remained to be processed, accounting for the incredible rise in 2008. The top countries where newly naturalized citizens came from were Mexico, India, China, the Philippines,  and Cuba, all of which fall under Asia and Latin America (by our definitions). The later peaks in 2011-2013 indicate a rise in number of applications. </p>
+                    <p>Last, we looked at the top states for naturalized citizens by foreign-born group: </p>
+
+                    Asia:
+                    <ul>
+                        <li>2006: California, New York, New Jersey, Texas, Illinois</li>
+                        <li>2007: California, New York, Texas, New Jersey, Illinois</li>
+                        <li>2008: California, New Jersey, New York, Texas, Virginia</li>
+                        <li>2009: California, New York, Texas, New Jersey, Virginia</li>
+                        <li>2010: California, New York, Texas, New Jersey, Illinois</li>
+                        <li>2011: California, New York, Texas, New Jersey, Illinois</li>
+                        <li>2012: California, New York, Texas, New Jersey, Illinois</li>
+                        <li>2013: California, New York, Texas, New Jersey, Illinois</li>
+                    </ul>
+
+                    Africa:
+                    <ul>
+                        <li>2006: New York, California, Minnesota, Georgia, Maryland</li>
+                        <li>2007: California, New York, Texas, Minnesota, Massachusetts</li>
+                        <li>2008: California, Maryland, Texas, Virginia, New York</li>
+                        <li>2009: California, New York, Texas, Maryland, Virginia</li>
+                        <li>2010: California, Texas, Maryland, New York, Minnesota</li>
+                        <li>2011: New York, California, Texas, Minnesota, Maryland</li>
+                        <li>2012: New York, Minnesota, Texas, California, Maryland</li>
+                        <li>2013: New York, California, Texas, Maryland, Minnesota</li>
+                    </ul>
+
+                    Europe:
+                    <ul>
+                        <li>2006: New York, California, Illinois, Florida, New Jersey</li>
+                        <li>2007: California, New York, Illinois, New Jersey, Florida</li>
+                        <li>2008: California, New York, Illinois, Florida, New Jersey</li>
+                        <li>2009: New York, California, Illinois, Florida, New Jersey</li>
+                        <li>2010: New York, California, Illinois, Florida, New Jersey</li>
+                        <li>2011: New York, California, Illinois, Florida, New Jersey</li>
+                        <li>2012: New York, California, Illinois, Florida, New Jersey</li>
+                        <li>2013: California, New York, Illinois, Florida, New Jersey</li>
+                    </ul>
+
+                    Latin America:
+                    <ul>
+                        <li>2006: Florida, California, New York, Texas, New Jersey</li>
+                        <li>2007: California, Florida, Texas, New York, Illinois</li>
+                        <li>2008: California, Florida, Texas, New York, New Jersey</li>
+                        <li>2009: California, Florida, Texas, New York, New Jersey</li>
+                        <li>2010: Florida, California, Texas, New York, New Jersey</li>
+                        <li>2011: Florida, California, Texas, New York, New Jersey</li>
+                        <li>2012: Florida, California, Texas, New York, New Jersey</li>
+                        <li>2013: Florida, California, Texas, New York, New Jersey</li>
+                    </ul>
+
+                    Northern America:
+                    <ul>
+                        <li>2006: New York, Florida, New Jersey, Massachusetts, California</li>
+                        <li>2007: New York, Florida, New Jersey, Massachusetts, California</li>
+                        <li>2008: New York, Florida, New Jersey, Massachusetts, California</li>
+                        <li>2009: New York, Florida, New Jersey, Massachusetts, California</li>
+                        <li>2010: New York, Florida, New Jersey, Massachusetts, California</li>
+                        <li>2011: New York, Florida, New Jersey, Massachusetts, California</li>
+                        <li>2012: New York, New Jersey, Florida, Massachusetts, Pennsylvania</li>
+                        <li>2013: New York, Florida, New Jersey, Massachusetts, Pennsylvania</li>
+                    </ul>
+
+                    Oceania:
+                    <ul>
+                        <li>2006: California, Hawaii, Washington, New York, Texas</li>
+                        <li>2007: California, Washington, Hawaii, Texas, New York</li>
+                        <li>2008: California, Washington, Hawaii, Utah, Texas</li>
+                        <li>2009: California, Washington, Hawaii, New York, Virginia</li>
+                        <li>2010: California, Washington, Hawaii, Texas, New York</li>
+                        <li>2011: California, Washington, Texas, Hawaii, New York</li>
+                        <li>2012: California, Washington, Texas, Utah, New York</li>
+                        <li>2013: California, Texas, New York, Hawaii, Florida</li>
+                    </ul>
+                    
+                    <p>Unsurprisingly, the states that show up in the top five for each group are about the same as those that showed up for legally permanent residents. However, Virginia does show up for naturalized citizens but not legally permanent residents, and Hawaii shows up more frequently for Oceanic naturalized citizens than it does for legally permanent residents. </p>
+                    <p>For naturalized citizens, we went through the same process of calculating and visualizing the states with the most actual naturalized citizens, the most expected, and the highest discrepancies. This visualization is shown below: </p>
+
+                    GRAPHS
+
+                    <p>Due to time constraints, we were unable to delve deeper into what could be the cause of the high discrepancies in some of the states, but that would be our next step. Additionally, doing a more thorough exploration of the relationship between legally permanent residents and naturalized citizens could increase clarity or highlight more intriguing facts. </p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://github.com/skchandra/DataScienceUSImmigration">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">We would like to thank Paul Ruvolo for his guidance and help throughout the project.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
