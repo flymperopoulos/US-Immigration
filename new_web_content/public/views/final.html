@@ -21,59 +21,56 @@
     <div id='sections'>
       <section class="step">
         <div class="title">A Shift of Opinions: Immigration and the United States</div>
-        This election cycle has once again cast a limelight upon the issue of immigration in the United States, referencing both legal and undocumented immigrants, and even refugees fleeing war-torn countries. It’s amazing that we take the rhetoric that some politicians display as the norm nowadays, since 30 years ago, this debate was aired.
+        This election cycle has once again cast a limelight upon the issue of immigration in the United States, referencing both legal and undocumented immigrants, and even refugees fleeing war-torn countries. It’s amazing that we take the rhetoric that some politicians display as the norm nowadays, since 30 years ago, this debate was aired between George H. W. Bush and Ronald Reagan.
       </section>
       <section class="step">
         <div class="title">Immigration Fluctuation</div>
         It's not only rhetoric that has varied greatly over the years. Immigration rates themselves have fluctuated greatly in recent years, varying by over 150 million in the past thirty years alone.
         <br></br>
-        When did the United States' attitude towards immigrants become so polarized, and sometimes hostile? It's necessary to investigate this question through multiple routes.
+        When did the United States' attitude towards immigrants become so polarized, and even hostile at times? It's necessary to investigate this question through multiple routes.
       </section>
       <section class="step">
         <div class="title">Routes of Investigation</div>
-          One is through the <b>Congressional Bills</b> which pertained to immigration. This provided us with a view of the legislative view of the government’s attitude towards immigration.
+          One is through the <b>Congressional Bills</b> which have pertained to immigration. They provided us with the legislative view of the government’s attitude towards immigration.
           <br></br>
-          Second was through archived <b>New York Times</b> articles which contained the word immigration. This let us view immigration through the lens of the general public and (in this case mostly liberal) media.
+          Second was through archived <b>New York Times</b> articles which contained the word immigration. This let us view immigration through the lens of the general public and (tending liberal) media.
           <br></br>
-           Finally, we found very interesting significant statistics published by the <b>Department of Homeland Security</b>. This gave us a perspective on the executive actions of the government.
+           Finally, we found very interesting significant statistics published by the <b>Department of Homeland Security</b>, which gave us a perspective on the executive actions of the government.
       </section>
       <section class="step">
         <div class="title">Taking a closer look into Bills</div>
-        We decided to zoom into the early 1990's till 2005, as Congress data prior to those dates appear deprecated.
+        We decided to zoom in on the range of years between 1990 and 2005, as Congress data prior to those dates appeared to be quite deprecated.
       </section>
       <section class="step">
         <div class="title">Unique Bills</div>
-        Although there were numerous amendments to bills, we were able to extract the first version of those bills related to immigration and, hence, collect 114 unique documents to process.
+        Although there were numerous amendments to bills, we were able to extract the first version of those bills related to immigration, and collect 114 unique documents to process.
       </section>
       <section class="step">
         <div class="title">What are they about</div>
-        After obtaining the content of the bills we collected their top_subject terms via TF-IDF and also by consulting with the words listed in the dataset that matched our predicions.
+        After obtaining the content of the bills we collected their top subject terms via TF-IDF and also by consulting with the words listed in the dataset that matched our predicions.
         <br></br>
         We were very interested in exploring the topic of Economics and Finance, as it was the most frequent one.
       </section>
       <section class="step">
         <div class="title">The Democratic "Yes"</div>
-        We were also very interested in seeing how democratic parties reacted to such bills about Immigration and the Economy. No party was particularly inclined to vote potively about a bill, and significant noise existed in the "yes" voting percentage of this party, as shown on the graph on the right.
+        We were also very interested in seeing how the different parties reacted to bills about Immigration and the Economy. No party was particularly inclined to vote potively about a bill, and significant noise existed in the "yes" voting percentage of this party, as shown on the graph on the right.
       </section>
       <section class="step">
         <div class="title">Bills and 1997</div>
         After thorough research and analysis performed, as documented <a href="https://github.com/flymperopoulos/US-Immigration/tree/master/congress/notebooks">here</a>, we came to the conlusion that the year 1997 stood out as a year with multiple bills targetted towards the US economy and the international affair matters that the country was involved at the time, i.e. Cuba.
         <br></br>
-        We then wanted to see whether the press had a similar say to this scene.
+        We then wanted to see whether our other data sets could support or add on to this discovery.
       </section>
-
       <section class="step">
         <div class="title">Articles and Clusters</div>
         <p>
-          Collected New York Times articles in the range of 1900 to 2005 (around 15000 totally).
-          Use TF-IDF to analyze all the articles adn K-means to cluster them into 5 clusters.
+          We scraped the New York Times archives over the same range of years, totalling around 15,000 articles.
+          We used TF-IDF to analyze all the articles and a K-means clustering algorithm to create 5 clusters out of our data.
         </p>
         <p>
-          In the following picture, I group the articles together into 100 bins among the 15000 articles, so each circle represents around 150 articles.  Each circle is originally a feature vector and should be graphed in a high dimensional space but here I project (smash) them all into a two dimensional plane by using the Multidimensional Scaling (reduction). As you may observe, the circles in a cluster tend to be closer together in spatial distance. Also, the year of circles in a cluster also tend to be closer in chronological distance. The clusters’ keywords are very distinct  from each other. Overall, it is a reasonable clustering.
+          On the right, we've grouped the articles together into 100 bins among the 15000 articles, so each circle represents around 150 articles.  Each circle is originally a multi-dimensional feature vector and should be graphed in a high dimensional space, but here we've projected them into a two dimensional plane by using Multidimensional Scaling (reduction). As you may observe, the circles in a cluster tend to be closer together in spatial distance. Also, the year of circles in a cluster also tend to be closer in chronological distance, and the clusters’ keywords are very distinct from each other. It appears to be a reasonable clustering of our data.
         </p>
       </section>
-
-
       <section class="step">
         <div class="title">Analyzing the Groupings</div>
         <p>
@@ -82,46 +79,43 @@
         </p>
       </section>
 
-
       <section class="step">
         <div class="title"> Analyzing the Words</div>
         <p>
-        After clustering, we grab the center words from each cluster along with their importance score (from TF-IDF) and use histograms and word clouds to visualize. The following picture shows the important words in the “kosovo” (second in order) cluster. The interesting words here are “kosovo”, “albanian”, “serbian” and so on.
+        After clustering, we gathered the central words from each cluster along with their importance score from the TF-IDF. We used both histograms and word clouds to visualize the words, to glean information from them. On the right, we can see that for the second cluster, “kosovo” is the most significant word, accompanied by several other words pertaining to Yugoslavia: “albanian”, “serbian”, etc.
         </p>
       </section>
-
-
       <section class="step">
         <div class="title"> Seeing What's Important</div>
         <p>
-          This is the possibility that you can see the word "kosovo" in the new york times "immigration" related articles.
-          The X axis is the years and the Y axis is the normalized possibility.
+          Here we've graphed the probability that any of our articles in a given year mentioned the word "kosovo". We can see that this focuses us on one particular year.
         </p>
       </section>
-
       <section class="step">
         <div class="title"> Dancing in the Clouds</div>
-        <p>As one can see in the image on the right, the most common words are illustrated in a word-cloud indicating what where the dominant terms in the articles examined.</p>
+        <p>As one can see in the image on the right, the most common words are illustrated in a word-cloud indicating the significant words mentioned by the articles in the cluster we analyzed.</p>
       </section>
       <section class="step">
         <div class="title"> Articles and 1999</div>
         <p>
-          The clustering tells us many important events, one of them is the Kosovo War around 1999. Besides that , there are also other events shown up in the clusters like the Elian Gonzalez custody battle around 2000 and so on.
+          The other clusters also point to certain other subjects and events, such as the custody battle for Elian Gonzalez, a cuban child. The "Kosovo" cluster, however, more strongly points to a noteworthy event: the Kosovo War of 1998 and '99.
         </p>
       </section>
       <section class="step">
         <div class="title"> Naturalizations in the U.S.</div>
         The final realm of data we explored was meant to represent the executive side of government. We gathered copious amounts of data from various metrics published by the Department of Homeland Security in order to attempt and construct this final perspective on immigration.
         <br></br>
-        In this graph, we already begin to see an interesting upwards spike in 1990, peaking at 1996.
+        In this graph, we see petitions for naturalization in yellow, naturalizations in green, and rejections in red. We can already begin to see an interesting upwards spike in 1990, peaking at 1996.
       </section>
       <section class="step">
         <div class="title"> Actions of the DHS</div>
-        In our data were various metrics such as immigration, denied entries, border patrol actions, deportations, and prosecutions regarding immigration. By analyzing more of the datasets, we found that our initial interest in 1990 and 1996 is not unfounded. 1996 seems to be a year that immigration trends declined, and negative attitudes and actions towards immigrants began to rise.
+        Contained in our data were copious metrics such as immigration, denied entries, border patrol actions, deportations, and prosecutions regarding immigration. By analyzing more of the datasets, we found that our initial interest in 1990 and 1996 is not unfounded. 1996 seems to be a year that immigration trends declined, and negative attitudes and actions towards immigrants, such as years of imprisonment sentenced regarding immigration violations began to rise.
       </section>
       <section class="step">
         <div class="title"> Immigration and 1996</div>
-
+        The upward trend in naturalization we found beginning in 1989 is very likely a result of the dissolution of the soviet bloc, which lead to an increase in immigrants to the United States, which is supported by the fact that approximately four times more European immigrants entered the United States in 1989 than in 1996.
+        <br></br>
+        However this event is external to the U.S, which makes the year 1996 our focus. This was the beginning of Clinton's second term, when there was bipartisan support for a very strong "war aginst crime" movement in Congress. This connects to our legislative data which didn't show one party voting far more strongly for immigration bills.
 
       </section>
       <section class="step">
@@ -130,7 +124,7 @@
       </section>
       <section class="step">
         <div class="title">The Years to Remember</div>
-        Our own initial hunch at years that have significantly shaped the United States' attitude towards immigrants was the 9/11 terrorist attacks.
+        Our own initial hunch at a year that could have significantly shaped the United States' attitude towards immigrants was the 9/11 terrorist attacks. Yet, through our explorations we've found a much more interesting story, and one that our younger generation has never learned or has forgotten about. We had never heard mention of the Yugoslav War, and our assumption was that under a Democrat like Bill Clinton, the United States would never have enacted harsher legislation upon immigrants.
       </section>
     </div>
     <div id='vis'>
