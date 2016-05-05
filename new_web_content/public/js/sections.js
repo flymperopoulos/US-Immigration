@@ -1320,8 +1320,6 @@ var scrollVis = function() {
                 .attr("class", "nat_stats")
 
               d3.csv("data/nat_data.csv", function(error, data) {
-
-                console.log(data);
                 // Scale the range of the data
                 var years = new Set(),
                     counts = new Set();
@@ -2132,7 +2130,7 @@ var scrollVis = function() {
       
     g.selectAll(".time_series")
       .transition()
-      .duration(600)
+      .duration(0)
       .attr("opacity", 0.0);
 
     
@@ -2162,7 +2160,7 @@ var scrollVis = function() {
 
     g.selectAll(".time_series")
       .transition()
-      .duration(600)
+      .duration(300)
       .style("opacity", 0);
 
     g.selectAll(".bills_bubbles")
