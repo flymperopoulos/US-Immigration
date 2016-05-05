@@ -1,0 +1,19 @@
+{
+  "main": "index.js",
+  "name": "usimmigration",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "cookie-parser": "^1.4.1",
+    "express": "^4.13.4",
+    "logger": "0.0.1",
+    "morgan": "^1.7.0",
+    "path": "^0.12.7"
+  }
+}
