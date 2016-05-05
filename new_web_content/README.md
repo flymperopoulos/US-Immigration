@@ -1,4 +1,4 @@
-### Server serving ou static files
+### US Immigration Server and Web
 
 #### Structure
 - `/public` - contains all js scripts, views and stylesheets 
