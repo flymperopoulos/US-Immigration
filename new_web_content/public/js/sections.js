@@ -75,12 +75,6 @@ var scrollVis = function() {
   .scale(y_nur)
   .orient("left");
 
-  var tip = d3.tip()
-    .attr('class', 'd3-tip')
-    .offset([-10, 0])
-    // .html(function(d) {return "<strong>Mentions:</strong> <span style='color:#813386'>" + d.count + "</span>";});
-    .html(function(d) {return "<span style='color:#813386'>" + d.count + "</span>   <strong>Mentions</strong>";});
-
   // constants to define the size
   // and margins of the vis area.
 
@@ -1962,40 +1956,6 @@ var scrollVis = function() {
 
                 final_article.style("opacity", 0);
                });
-    // DOTS ON YEARS
-    // var svg_dots = g.append("svg")
-    //   .attr("class", "dots")
-
-    // svg.call(tip);
-
-    // svg_dots.append("g")
-    //   .attr("class", "axis")
-    //   .attr("transform", "translate(0," + height + ")")
-    //   .call(xAxis);
-
-    // svg_dots.append("g")
-    //   .attr("class", "axis")
-    //   .call(yAxis);
-
-    // svg_dots.selectAll("circle")
-    //   .data(data)
-    //   .enter().append("circle")
-    //   .attr("cx", function(d) {return x_nur(d.year);})
-    //   .attr("cy", height/2)
-    //   .attr("r", function(d) {return radScale(d.count);})
-    //   .on("mouseover", tip.show)
-    //   .on("mouseout", tip.hide)
-    //   .attr("class", function(d) {
-    //     var returnClass;
-    //     if (d.type==="bill") {returnClass="b circle";}
-    //     else if (d.type==="article") {returnClass="a circle";}
-    //     return returnClass;
-    //   })
-    //   .transition()
-    //   .delay(250)
-    //   .duration(2000)
-    //   .attr("cy", function(d) {return y_nur(d.word);});
-
 
 
 
@@ -2745,4 +2705,4 @@ function display(data) {
 }
 
 // load data and display
-d3.csv("data/unique_immigration_104_107.csv", display);
+d3.csv("data/cuba.csv", display);
