@@ -224,12 +224,7 @@
                           <option onclick="setGroup('Northern America')">Northern America</li>
                           <option onclick="setGroup('Latin America')">Latin America</li>
                     </select>
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Groups
-                        <span class="caret"></span></button>
-
-                        
-                      </div>  
+                     
                       <div id="panoramaDivErr"  style="width:100%" align="center">
                         <button onclick = "processNextErr()" style = "width: 50px; height: 50px; float: left"><img src="http://iconshow.me/media/images/ui/ios7-icons/png/512/chevron-left.png" width="5%" style = "width: 5%; position:relative;"></button>
                         <img id="panoramaErr" src = "img/2006_Africa_error.png" height= "90%" width = "100%">
@@ -328,19 +323,14 @@
                     <p>Unsurprisingly, the states that show up in the top five for each group are about the same as those that showed up for legally permanent residents. However, Virginia does show up for naturalized citizens but not legally permanent residents, and Hawaii shows up more frequently for Oceanic naturalized citizens than it does for legally permanent residents. </p>
                     <p>For naturalized citizens, we went through the same process of calculating and visualizing the states with the most actual naturalized citizens, the most expected, and the highest discrepancies. This visualization is shown below: </p>
 
-                    <div class="dropdown1">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Groups
-                        <span class="caret"></span></button>
-
-                        <ul class="dropdown-menu1">
-                          <li onclick="setGroup1('Asia')">Asia</li>
-                          <li onclick="setGroup1('Africa')">Africa</li>
-                          <li onclick="setGroup1('Europe')">Europe</li>
-                          <li onclick="setGroup1('Oceania')">Oceania</li>
-                          <li onclick="setGroup1('Northern America')">Northern America</li>
-                          <li onclick="setGroup1('Latin America')">Latin America</li>
-                        </ul>
-                      </div>  
+                    <select onchange="setGroup1(this.value)">
+                          <option onclick="setGroup1('Asia')">Asia</li>
+                          <option onclick="setGroup1('Africa')">Africa</li>
+                          <option onclick="setGroup1('Europe')">Europe</li>
+                          <option onclick="setGroup1('Oceania')">Oceania</li>
+                          <option onclick="setGroup1('Northern America')">Northern America</li>
+                          <option onclick="setGroup1('Latin America')">Latin America</li>
+                    </select>
                       <div id="panoramaDivErr1"  style="width:100%" align="center">
                         <button onclick = "processNextErr1()" style = "width: 50px; height: 50px; float: left"><img src="http://iconshow.me/media/images/ui/ios7-icons/png/512/chevron-left.png" width="5%" style = "width: 5%; position:relative;"></button>
                         <img id="panoramaErr1" src = "img/nat2006_Africa_error.png" height= "90%" width = "100%">
