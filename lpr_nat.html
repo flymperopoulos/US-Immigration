@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -34,11 +34,70 @@
     window.onload = initLinks;
 
     var year = 2013;
-    var group = 'Asia'; 
+    var group = 'Africa'; 
 
     function initLinks() {
-      // document.getElementById("prevLink").onclick = processPrevious;
-      // document.getElementById("nextLink").onclick = processNext;
+      // document.getElementById("prevLink").onclick = processPreviousErr;
+      // document.getElementById("nextLink").onclick = processNextErr;
+    }
+
+    function processPreviousErr1() {
+      console.log('in process previous')
+      if (year > 2013) {
+        console.log("year in if statement", year)
+        year = 2006;
+        console.log("year in if statement AFTER", year)
+      }
+      year++;
+      console.log("group", group); 
+      console.log("year", year)
+      var name = year+"_"+group+"_"+"error.png"; 
+      console.log('name', name)
+      document.getElementById("panoramaErr1").src = "img/nat"+name;
+      return false;
+    }
+
+    function processNextErr1() {
+      console.log('in process next')
+      if (year < 2007) {
+        console.log("year in if statement", year)
+        year = 2013;
+      }
+      console.log("year", year)
+      year--;
+      var name = year+"_"+group+"_"+"error.png"; 
+      document.getElementById("panoramaErr1").src =  "img/nat"+name;
+      return false;
+    }
+
+    function processPreviousAct1() {
+      console.log('in process previous')
+      if (year > 2013) {
+        year = 2006;
+      }
+      year++;
+      console.log("group", group); 
+      console.log("year", year)
+      var name = year+"_"+group+"_"+"actexp.png"; 
+      console.log('name', name)
+      document.getElementById("panoramaAct1").src = "img/nat"+name;
+      return false;
+    }
+
+    function processNextAct1() {
+      console.log('in process next')
+      if (year < 2007) {
+        year = 2013;
+      }
+      year--;
+      var name = year+"_"+group+"_"+"actexp.png"; 
+      document.getElementById("panoramaAct1").src =  "img/nat"+name;
+      return false;
+    }
+
+    function setGroup1(g){ 
+      console.log("in set group", g)
+      group = g
     }
 
     function processPreviousErr() {
@@ -157,28 +216,29 @@
                     <p>With this value, we then did error calculations to see where the greatest deviation lies. For example, for African legally permanent residents in 2006, Minnesota, North Dakota, and South Dakota all had significantly more actual legally permanent residents than expected (ranging from 250-300% error). On the other hand, Hawaii, Florida, and Arkansas had fewer African legally permanent residents than expected (ranging from 75-100% error). </p>
                     <p>Below is an interactive visualization displaying graphs for each foreign-born population by year. The top graph shows the five states with the most actual legally permanent residents, the five states with the most expected legally permanent residents, and the ten states with the most discrepancy between expected and actual (five where there were more than expected and five where there were fewer than expected). In most graphs, many states are repeated in these groups so they are only displayed once in the graph. In the bottom graph, the error rate between the expected and actual for each of these states is shown (negative values indicate more actual than expected and positive values indicate more expected than actual). </p>
                     
+                    <select onchange="setGroup(this.value)">
+                          <option onclick="setGroup('Asia')">Asia</li>
+                          <option onclick="setGroup('Africa')">Africa</li>
+                          <option onclick="setGroup('Europe')">Europe</li>
+                          <option onclick="setGroup('Oceania')">Oceania</li>
+                          <option onclick="setGroup('Northern America')">Northern America</li>
+                          <option onclick="setGroup('Latin America')">Latin America</li>
+                    </select>
                     <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Groups
                         <span class="caret"></span></button>
 
-                        <ul class="dropdown-menu">
-                          <li onclick="setGroup('Asia')">Asia</li>
-                          <li onclick="setGroup('Africa')">Africa</li>
-                          <li onclick="setGroup('Europe')">Europe</li>
-                          <li onclick="setGroup('Oceania')">Oceania</li>
-                          <li onclick="setGroup('Northern America')">Northern America</li>
-                          <li onclick="setGroup('Latin America')">Latin America</li>
-                        </ul>
+                        
                       </div>  
                       <div id="panoramaDivErr"  style="width:100%" align="center">
                         <button onclick = "processNextErr()" style = "width: 50px; height: 50px; float: left"><img src="http://iconshow.me/media/images/ui/ios7-icons/png/512/chevron-left.png" width="5%" style = "width: 5%; position:relative;"></button>
-                        <img id="panoramaErr" src = "" alt="waypoint" height= "90%" width = "100%">
+                        <img id="panoramaErr" src = "img/2006_Africa_error.png" height= "90%" width = "100%">
                         <button onclick = "processPreviousErr()" style = "width: 50px; height: 50px; float: right"><img src="http://www.pixempire.com/images/preview/right-arrow-icon.jpg" style = "position:relative; width: 5%" ></button>
                       </div>
 
                       <div id="panoramaDivAct"  style="width:100%" align="center">
                         <button onclick = "processNextAct()" style = "width: 50px; height: 50px; float: left"><img src="http://iconshow.me/media/images/ui/ios7-icons/png/512/chevron-left.png" width="5%" style = "width: 5%; position:relative;"></button>
-                        <img id="panoramaAct" src = "" alt="waypoint" height= "90%" width = "100%">
+                        <img id="panoramaAct" src = "img/2006_Africa_actexp.png" alt="waypoint" height= "90%" width = "100%">
                         <button onclick = "processPreviousAct()" style = "width: 50px; height: 50px; float: right"><img src="http://www.pixempire.com/images/preview/right-arrow-icon.jpg" style = "position:relative; width: 5%" ></button>
                       </div>
 
@@ -268,7 +328,30 @@
                     <p>Unsurprisingly, the states that show up in the top five for each group are about the same as those that showed up for legally permanent residents. However, Virginia does show up for naturalized citizens but not legally permanent residents, and Hawaii shows up more frequently for Oceanic naturalized citizens than it does for legally permanent residents. </p>
                     <p>For naturalized citizens, we went through the same process of calculating and visualizing the states with the most actual naturalized citizens, the most expected, and the highest discrepancies. This visualization is shown below: </p>
 
-                    GRAPHS
+                    <div class="dropdown1">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Groups
+                        <span class="caret"></span></button>
+
+                        <ul class="dropdown-menu1">
+                          <li onclick="setGroup1('Asia')">Asia</li>
+                          <li onclick="setGroup1('Africa')">Africa</li>
+                          <li onclick="setGroup1('Europe')">Europe</li>
+                          <li onclick="setGroup1('Oceania')">Oceania</li>
+                          <li onclick="setGroup1('Northern America')">Northern America</li>
+                          <li onclick="setGroup1('Latin America')">Latin America</li>
+                        </ul>
+                      </div>  
+                      <div id="panoramaDivErr1"  style="width:100%" align="center">
+                        <button onclick = "processNextErr1()" style = "width: 50px; height: 50px; float: left"><img src="http://iconshow.me/media/images/ui/ios7-icons/png/512/chevron-left.png" width="5%" style = "width: 5%; position:relative;"></button>
+                        <img id="panoramaErr1" src = "img/nat2006_Africa_error.png" height= "90%" width = "100%">
+                        <button onclick = "processPreviousErr1()" style = "width: 50px; height: 50px; float: right"><img src="http://www.pixempire.com/images/preview/right-arrow-icon.jpg" style = "position:relative; width: 5%" ></button>
+                      </div>
+
+                      <div id="panoramaDivAct1"  style="width:100%" align="center">
+                        <button onclick = "processNextAct1()" style = "width: 50px; height: 50px; float: left"><img src="http://iconshow.me/media/images/ui/ios7-icons/png/512/chevron-left.png" width="5%" style = "width: 5%; position:relative;"></button>
+                        <img id="panoramaAct1" src = "img/nat2006_Africa_actexp.png" alt="waypoint" height= "90%" width = "100%">
+                        <button onclick = "processPreviousAct1()" style = "width: 50px; height: 50px; float: right"><img src="http://www.pixempire.com/images/preview/right-arrow-icon.jpg" style = "position:relative; width: 5%" ></button>
+                      </div>
 
                     <p>Due to time constraints, we were unable to delve deeper into what could be the cause of the high discrepancies in some of the states, but that would be our next step. Additionally, doing a more thorough exploration of the relationship between legally permanent residents and naturalized citizens could increase clarity or highlight more intriguing facts. </p>
                 </div>
