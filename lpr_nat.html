@@ -43,12 +43,12 @@
 
     function processPreviousErr1() {
       console.log('in process previous')
+      year++;
       if (year > 2013) {
         console.log("year in if statement", year)
         year = 2006;
         console.log("year in if statement AFTER", year)
       }
-      year++;
       console.log("group", group); 
       console.log("year", year)
       var name = year+"_"+group+"_"+"error.png"; 
@@ -59,12 +59,12 @@
 
     function processNextErr1() {
       console.log('in process next')
-      if (year < 2007) {
+      console.log("year", year)
+      year--;
+      if (year < 2006) {
         console.log("year in if statement", year)
         year = 2013;
       }
-      console.log("year", year)
-      year--;
       var name = year+"_"+group+"_"+"error.png"; 
       document.getElementById("panoramaErr1").src =  "img/nat"+name;
       return false;
@@ -72,10 +72,10 @@
 
     function processPreviousAct1() {
       console.log('in process previous')
+      year++;
       if (year > 2013) {
         year = 2006;
       }
-      year++;
       console.log("group", group); 
       console.log("year", year)
       var name = year+"_"+group+"_"+"actexp.png"; 
@@ -86,10 +86,10 @@
 
     function processNextAct1() {
       console.log('in process next')
-      if (year < 2007) {
+      year--;
+      if (year < 2006) {
         year = 2013;
       }
-      year--;
       var name = year+"_"+group+"_"+"actexp.png"; 
       document.getElementById("panoramaAct1").src =  "img/nat"+name;
       return false;
@@ -102,12 +102,12 @@
 
     function processPreviousErr() {
       console.log('in process previous')
+      year++;
       if (year > 2013) {
         console.log("year in if statement", year)
         year = 2006;
         console.log("year in if statement AFTER", year)
       }
-      year++;
       console.log("group", group); 
       console.log("year", year)
       var name = year+"_"+group+"_"+"error.png"; 
@@ -118,12 +118,12 @@
 
     function processNextErr() {
       console.log('in process next')
-      if (year < 2007) {
+      console.log("year", year)
+      year--;
+      if (year < 2006) {
         console.log("year in if statement", year)
         year = 2013;
       }
-      console.log("year", year)
-      year--;
       var name = year+"_"+group+"_"+"error.png"; 
       document.getElementById("panoramaErr").src =  "img/"+name;
       return false;
@@ -131,10 +131,10 @@
 
     function processPreviousAct() {
       console.log('in process previous')
+      year++;
       if (year > 2013) {
         year = 2006;
       }
-      year++;
       console.log("group", group); 
       console.log("year", year)
       var name = year+"_"+group+"_"+"actexp.png"; 
@@ -145,10 +145,10 @@
 
     function processNextAct() {
       console.log('in process next')
-      if (year < 2007) {
+      year--;
+      if (year < 2006) {
         year = 2013;
       }
-      year--;
       var name = year+"_"+group+"_"+"actexp.png"; 
       document.getElementById("panoramaAct").src =  "img/"+name;
       return false;
